@@ -53,7 +53,8 @@
                 </span>
             </div>
             <div class="text-end mb-4">
-                <p><a class="link-offset-2 link-underline link-underline-opacity-0 text-primary" href="#">Forgot
+                <p><a class="link-offset-2 link-underline link-underline-opacity-0 text-primary"
+                        href="/forgot-password">Forgot
                         Password?</a></p>
             </div>
             <button class="btn btn-primary w-100 py-2 mb-2 rounded-4 text-white" type="submit">Login</button>

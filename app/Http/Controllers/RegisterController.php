@@ -29,4 +29,11 @@ class RegisterController extends Controller
 
         return redirect('/login')->with('success', 'Registration successfull! Please login');
     }
+
+    public function verification()
+    {
+        return view('register.verification', [
+            'title' => 'Register'
+        ]);
+    }
 }

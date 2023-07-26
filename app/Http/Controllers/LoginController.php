@@ -23,19 +23,19 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/home');
         }
 
         return back()->with('loginError', 'Login Failed: Please check your email or password and try again.')->withErrors('email');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        request()->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        request()->session()->regenerateToken();
 
         return redirect('/');
     }
