@@ -1,5 +1,5 @@
 {{-- nav --}}
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand-lg bg-white container pt-4">
     <div class="container-fluid">
         <a href="#"><img class="navbar-brand" src="/assets/img/logo-navbar.svg" alt="logo-algostudio"
                 style="height: 2.5rem"></a>
@@ -18,7 +18,8 @@
                         href="{{ url('/absen') }}">Absen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Documents</a>
+                    <a class="nav-link {{ Route::is('documents') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold' : '' }}"
+                        href="{{ url('/documents') }}">Documents</a>
                 </li>
             </ul>
             <div class="d-flex align-items-center">
@@ -35,15 +36,21 @@
                             <span class="fw-bold">Hi {{ auth()->user()->name }}</span>
                             <span>Welcome</span>
                         </div>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" role="menu">
                             <li><a class="dropdown-item" href="#">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <form action="{{ route('logout') }}" method="POST">
+                                <a href="{{ url('/logout') }}" class="dropdown-item"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                    style="display: none;">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
                         </ul>

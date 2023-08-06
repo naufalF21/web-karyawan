@@ -6,15 +6,19 @@
 </head>
 
 <body>
-    {{-- <header>
-        @include('web.layout.header')
-    </header> --}}
+    @hasSection('container')
+        @include('layouts.navbar')
+    @endif
     <main>
         @yield('content')
+        @yield('container')
     </main>
-    {{-- <footer>
-        @include('web.layout.footer')
-    </footer> --}}
+    @hasSection('container')
+        @include('layouts.footer')
+    @endif
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>
 
 </html>

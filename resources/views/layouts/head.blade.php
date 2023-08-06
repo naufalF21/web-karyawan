@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
 {{-- custom css --}}
-{{-- <link rel="stylesheet" href="/assets/css/style.css"> --}}
-{{-- <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 @vite(['resources/js/app.js', 'resources/sass/app.scss'])
