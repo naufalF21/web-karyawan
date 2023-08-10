@@ -303,3 +303,30 @@ body {
     stroke-dashoffset: 48;
     animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
 }
+
+a:hover,
+a:active,
+a:visited,
+a:link {
+    text-decoration: none;
+}
+
+.sidebar-active,
+#sidebarMenu:hover {
+    background-color: #04a6fe;
+    border-radius: 10rem;
+}
+
+.sidebar-active svg path,
+#sidebarMenu:hover svg path {
+    stroke: #fff;
+}
+
+.sidebar-active span,
+#sidebarMenu:hover span {
+    color: #fff;
+}
+
+.sidebar-active:hover {
+    background-color: #2ab3fe !important;
+}

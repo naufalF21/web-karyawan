@@ -1,6 +1,7 @@
 @extends('layout')
 @section('container')
-    <form action="#" class="form" id="forms">
+    <form action="{{ route('contact.store', ['document' => $document]) }}" class="form" id="forms" method="post">
+        @csrf
         <div class="progressbar">
             <div class="progress bg-primary" id="progress" style="width: 33.3333%; height: 4px;"></div>
 
@@ -101,8 +102,8 @@
             </div>
 
             <div class="btns-group">
-                <a href="/documents" class="btn btn-outline-primary">Previous</a>
-                <a href="/documents/cuti" class="btn btn-primary fw-normal text-white">Next step</a>
+                <a href="/document" class="btn btn-outline-primary">Previous</a>
+                <button type="submit" class="btn btn-primary fw-normal text-white">Next step</button>
             </div>
         </div>
 

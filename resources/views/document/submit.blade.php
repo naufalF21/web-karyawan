@@ -49,8 +49,8 @@
             </div>
 
             <div class="btns-group mt-5">
-                <a href="/documents/lembur" class="btn btn-outline-primary">Previous</a>
-                <input type="submit" value="Submit" id="submit-form" class="btn btn-primary fw-normal text-white" />
+                <a href="{{ route($document) }}" class="btn btn-outline-primary">Previous</a>
+                <a href="#" id="submit-form" class="btn btn-primary fw-normal text-white">Submit</a>
             </div>
         </div>
     </form>

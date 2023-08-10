@@ -1,6 +1,13 @@
 @extends('layout')
 @section('container')
-    <form action="#" class="form" id="forms">
+    <form action="{{ route('document.store') }}" class="form" id="forms" method="post">
+        @csrf
+        @if (session()->has('docError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('docError') ?? '' }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="progressbar">
             <div class="progress" id="progress"></div>
 
@@ -18,7 +25,7 @@
             </div>
 
             <div class="btns-group">
-                <input type="radio" class="btn-check" name="options-base" id="option1" autocomplete="off">
+                <input type="radio" class="btn-check" name="type" id="option1" autocomplete="off" value="cuti">
                 <label class="btn" for="option1">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +46,7 @@
                     Cuti
                 </label>
 
-                <input type="radio" class="btn-check" name="options-base" id="option2" autocomplete="off">
+                <input type="radio" class="btn-check" name="type" id="option2" autocomplete="off" value="lembur">
                 <label class="btn" for="option2">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -62,8 +69,8 @@
 
             </div>
             <div class="mt-5 d-flex">
-                <a href="documents/contact" class="btn btn-primary btn-next width-50 ml-auto fw-normal text-white">Next
-                    step</a>
+                <button class="btn btn-primary btn-next width-50 ml-auto fw-normal text-white" type="submit">Next
+                    step</button>
             </div>
         </div>
     </form>

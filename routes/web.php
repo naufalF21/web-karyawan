@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CutiController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\LemburController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,8 +50,24 @@ Route::get('/absen', function () {
     ]);
 })->middleware('auth')->name('absen');
 
-Route::get('/documents', [DocumentsController::class, 'index'])->middleware('auth')->name('documents');
-Route::get('/documents/contact', [DocumentsController::class, 'contact'])->middleware('auth')->name('contact');
-Route::get('/documents/cuti', [DocumentsController::class, 'cuti'])->middleware('auth')->name('cuti');
-Route::get('/documents/lembur', [DocumentsController::class, 'lembur'])->middleware('auth')->name('lembur');
-Route::get('/documents/submit', [DocumentsController::class, 'submit'])->middleware('auth')->name('submit');
+Route::get('/document', [DocumentController::class, 'index'])->middleware('auth')->name('document');
+Route::post('/document', [DocumentController::class, 'store'])->middleware('auth')->name('document.store');
+
+Route::get('/document/contact', [ContactController::class, 'index'])->middleware('auth')->name('contact');
+Route::post('/document/contact', [ContactController::class, 'store'])->middleware('auth')->name('contact.store');
+
+Route::get('/document/cuti', [CutiController::class, 'index'])->middleware('auth')->name('cuti');
+Route::get('/document/lembur', [LemburController::class, 'index'])->middleware('auth')->name('lembur');
+Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware('auth')->name('submit');
+
+Route::get('/profile', function () {
+    return view('profile.index', [
+        'title' => 'Profile',
+    ]);
+})->middleware('auth')->name('profile');
+
+Route::get('/profile/settings', function () {
+    return view('profile.settings', [
+        'title' => 'Profile Settings',
+    ]);
+})->middleware('auth')->name('profile.settings');

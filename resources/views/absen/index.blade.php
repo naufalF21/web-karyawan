@@ -12,7 +12,8 @@
                 <div class="mx-5 d-flex align-items-center flex-column">
                     <span id="start-label" class="text-secondary">Start Date and Time</span>
                     <p id="start-date"></p>
-                    <button class="btn btn-success text-white px-5 fs-4 fw-bold">IN</button>
+                    <button class="btn btn-success text-white px-5 fs-4 fw-bold" id="in-btn"
+                        onclick="console.log('0')">IN</button>
                 </div>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
@@ -42,6 +43,27 @@
             document.getElementById('start-date').innerText = date + ', 08:40 am';
             document.getElementById('end-date').innerText = date + ', 04:10 pm';
         }
+
+        function changeBtnColor() {
+            let now = new Date();
+            let hours = now.getHours();
+            // let hours = 17;
+            let minutes = now.getMinutes();
+            let button = document.getElementById("in-btn");
+
+            // Bandingkan waktu dengan 08:40 AM (08:40 = 8 * 60 + 40)
+            if (hours > 8 || (hours === 8 && minutes >= 40)) {
+                button.classList.add('btn-warning');
+            }
+
+            if (hours > 16 || (hours === 16 && minutes >= 10)) {
+                button.disabled = true;
+            }
+        }
+
+        window.onload = function() {
+            changeBtnColor();
+        };
 
         // Update the date every second
         setInterval(updateDate, 1000);

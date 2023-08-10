@@ -60,8 +60,9 @@
             </div>
 
             <div class="btns-group mt-4">
-                <a href="/documents/contact" class="btn btn-outline-primary">Previous</a>
-                <a href="/documents/submit" class="btn btn-primary fw-normal text-white">Next step</a>
+                <a href="{{ route('contact', ['document' => 'lembur']) }}" class="btn btn-outline-primary">Previous</a>
+                <a href="{{ route('submit', ['document' => 'lembur']) }}" class="btn btn-primary fw-normal text-white">Next
+                    step</a>
             </div>
         </div>
 

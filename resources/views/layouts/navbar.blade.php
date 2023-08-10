@@ -18,8 +18,8 @@
                         href="{{ url('/absen') }}">Absen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('documents') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold' : '' }}"
-                        href="{{ url('/documents') }}">Documents</a>
+                    <a class="nav-link {{ Route::is('document') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold' : '' }}"
+                        href="{{ url('/document') }}">Documents</a>
                 </li>
             </ul>
             <div class="d-flex align-items-center">
@@ -37,6 +37,10 @@
                             <span>Welcome</span>
                         </div>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a class="dropdown-item" href="{{ route('profile') }}"
+                                    onclick="event.preventDefault();
+                                document.getElementById('profile-form').submit();">Profil</a>
+                            </li>
                             <li><a class="dropdown-item" href="#">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -51,6 +55,9 @@
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST"
                                     style="display: none;">
                                     @csrf
+                                </form>
+                                <form id="profile-form" action="{{ route('profile') }}" method="GET"
+                                    style="display: none;">
                                 </form>
                             </li>
                         </ul>
