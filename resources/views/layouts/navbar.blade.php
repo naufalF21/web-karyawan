@@ -10,15 +10,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center w-100 gap-lg-4">
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('home') ? 'active fw-bold' : '' }}" aria-current="page"
-                        href="{{ url('/home') }}">Home</a>
+                    <a class="nav-link {{ Route::is('home') ? 'active fw-bold border-2 border-dark border-bottom' : '' }}"
+                        aria-current="page" href="{{ url('/home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('absen') ? 'active fw-bold' : '' }}"
+                    <a class="nav-link {{ Route::is('absen') || Route::is('absen.done') ? 'active fw-bold border-2 border-dark border-bottom' : '' }}"
                         href="{{ url('/absen') }}">Absen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('document') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold' : '' }}"
+                    <a class="nav-link {{ Route::is('document') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold border-2 border-dark border-bottom' : '' }}"
                         href="{{ url('/document') }}">Documents</a>
                 </li>
             </ul>
@@ -41,7 +41,10 @@
                                     onclick="event.preventDefault();
                                 document.getElementById('profile-form').submit();">Profil</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{ route('dashboard.index') }}"
+                                    onclick="event.preventDefault();
+                                document.getElementById('dashboard-link').submit();">Dashboard</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -57,6 +60,9 @@
                                     @csrf
                                 </form>
                                 <form id="profile-form" action="{{ route('profile') }}" method="GET"
+                                    style="display: none;">
+                                </form>
+                                <form id="dashboard-link" action="{{ route('dashboard.index') }}" method="GET"
                                     style="display: none;">
                                 </form>
                             </li>

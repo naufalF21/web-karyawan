@@ -25,7 +25,8 @@
             </div>
 
             <div class="btns-group">
-                <input type="radio" class="btn-check" name="type" id="option1" autocomplete="off" value="cuti">
+                <input type="radio" class="btn-check" name="type" id="option1" autocomplete="off" value="cuti"
+                    {{ $cacheData == 'cuti' ? 'checked' : '' }}>
                 <label class="btn" for="option1">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +47,8 @@
                     Cuti
                 </label>
 
-                <input type="radio" class="btn-check" name="type" id="option2" autocomplete="off" value="lembur">
+                <input type="radio" class="btn-check" name="type" id="option2" autocomplete="off" value="lembur"
+                    {{ $cacheData == 'lembur' ? 'checked' : '' }}>
                 <label class="btn" for="option2">
                     <svg width="35" height="35" viewBox="0 0 35 35" fill="none"
                         xmlns="http://www.w3.org/2000/svg">

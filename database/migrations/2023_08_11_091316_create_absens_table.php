@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('absens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('nama');
+            $table->date('tanggal');
+            $table->string('waktu_check_in')->nullable();
+            $table->string('waktu_check_out')->nullable();
+            $table->string('jam_kerja')->nullable();
+            $table->boolean('terlambat')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('absens');
     }
 };

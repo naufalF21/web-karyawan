@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('lemburs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('jenis');
             $table->date('tanggal_lembur');
-            $table->date('mulai_lembur');
-            $table->date('sd_lembur');
+            $table->string('mulai_lembur');
+            $table->string('sd_lembur');
             $table->string('uraian_kerja');
             $table->timestamps();
         });

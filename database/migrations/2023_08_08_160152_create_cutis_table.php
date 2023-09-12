@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cutis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('jenis');
             $table->date('dari_tanggal');
             $table->date('sd_tanggal');

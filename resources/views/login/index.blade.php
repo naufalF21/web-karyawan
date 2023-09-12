@@ -20,9 +20,10 @@
             <a href="/"><img class="mx-auto mb-4" src="/assets/img/logo-algostudio.png" alt="logo-algostudio"></a>
             <p class="mx-auto mb-3 fw-normal text-body-tertiary">Login for next page</p>
             <div class="form-group input-group">
-                <input class="form-control py-2 rounded-4" id="email" type="email" placeholder="Your Email"
-                    name="email" value="{{ old('email') }}" required />
-                <span class="input-group-text bg-primary rounded-4">
+                <input class="form-control rounded-4" id="email" type="email" placeholder="Your Email" name="email"
+                    value="{{ old('email') }}" required />
+                <span class="input-group-text bg-primary rounded-4"
+                    style="margin-left: -2.9rem; z-index: 99; border-color: #04A6FE;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22"
                         fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -37,7 +38,8 @@
             <div class="form-group input-group">
                 <input class="form-control py-2 rounded-4" id="password" type="password" placeholder="Your Password"
                     name="password" required />
-                <span class="input-group-text rounded-4 bg-primary">
+                <span class="input-group-text rounded-4 bg-primary"
+                    style="margin-left: -2.9rem; z-index: 99; border-color: #04A6FE;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                         fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"

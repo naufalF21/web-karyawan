@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CutiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -44,11 +46,9 @@ Route::get('/home', function () {
     ]);
 })->middleware('auth')->name('home');
 
-Route::get('/absen', function () {
-    return view('absen.index', [
-        'title' => 'Absen',
-    ]);
-})->middleware('auth')->name('absen');
+Route::get('/absen', [AbsenController::class, 'index'])->middleware('auth')->name('absen');
+Route::post('/absen', [AbsenController::class, 'store'])->middleware('auth')->name('absen.store');
+Route::get('/absen/done', [AbsenController::class, 'done'])->middleware('auth')->name('absen.done');
 
 Route::get('/document', [DocumentController::class, 'index'])->middleware('auth')->name('document');
 Route::post('/document', [DocumentController::class, 'store'])->middleware('auth')->name('document.store');
@@ -57,8 +57,13 @@ Route::get('/document/contact', [ContactController::class, 'index'])->middleware
 Route::post('/document/contact', [ContactController::class, 'store'])->middleware('auth')->name('contact.store');
 
 Route::get('/document/cuti', [CutiController::class, 'index'])->middleware('auth')->name('cuti');
+Route::post('/document/cuti', [CutiController::class, 'store'])->middleware('auth')->name('cuti.store');
+
 Route::get('/document/lembur', [LemburController::class, 'index'])->middleware('auth')->name('lembur');
+Route::post('/document/lembur', [LemburController::class, 'store'])->middleware('auth')->name('lembur.store');
+
 Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware('auth')->name('submit');
+Route::get('/document/cetak', [DocumentController::class, 'cetak'])->middleware('auth')->name('cetak');
 
 Route::get('/profile', function () {
     return view('profile.index', [
@@ -71,3 +76,11 @@ Route::get('/profile/settings', function () {
         'title' => 'Profile Settings',
     ]);
 })->middleware('auth')->name('profile.settings');
+
+Route::middleware('auth')->controller(DashboardController::class)->name('dashboard.')->group(function () {
+    Route::get('/dashboard', 'index')->name('index');
+    Route::get('/dashboard/absen', 'absen')->name('absen');
+    Route::get('/dashboard/employees', 'employees')->name('employees');
+    Route::get('/dashboard/request', 'request')->name('request');
+    Route::get('/dashboard/report', 'report')->name('report');
+});

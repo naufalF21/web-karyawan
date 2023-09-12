@@ -19,35 +19,39 @@
                 </div>
                 <h5 class="fw-bold">Profile Information</h5>
                 <div class="pt-4 d-flex flex-row" style="gap: 10rem">
-                    <div class="d-flex flex-column gap-4 justify-content-between">
+                    <div class="d-flex flex-column gap-4 justify-content-between" style="width: 8rem">
                         <div class="d-flex flex-column">
                             <label for="username" class="text-secondary">Name</label>
-                            <span id="username">{{ auth()->user()->name }}</span>
+                            <span id="username">{{ auth()->user()->name == null ? '-' : auth()->user()->name }}</span>
                         </div>
                         <div class="d-flex flex-column">
-                            <label for="username" class="text-secondary">Address</label>
-                            <span id="username">Kemantren Rejo, Pasuruan</span>
+                            <label for="address" class="text-secondary">Address</label>
+                            <span
+                                id="address">{{ auth()->user()->address == null ? '-' : auth()->user()->address }}</span>
                         </div>
                         <div class="d-flex flex-column">
-                            <label for="username" class="text-secondary">Contact</label>
-                            <span id="username">085851986805</span>
+                            <label for="contact" class="text-secondary">Contact</label>
+                            <span
+                                id="contact">{{ auth()->user()->contact == null ? '-' : auth()->user()->contact }}</span>
                         </div>
                     </div>
                     <div class="d-flex flex-column gap-4 w-100 justify-content-between">
                         <div class="d-flex flex-column">
-                            <label for="username" class="text-secondary">Email</label>
-                            <span id="username">{{ auth()->user()->email }}</span>
+                            <label for="email" class="text-secondary">Email</label>
+                            <span id="email">{{ auth()->user()->email == null ? '-' : auth()->user()->email }}</span>
                         </div>
                         <div class="d-flex flex-row justify-content-between w-75">
                             <div class="d-flex flex-column">
-                                <label for="username" class="text-secondary">Position</label>
-                                <span id="username">UI/UX Design</span>
+                                <label for="position" class="text-secondary">Position</label>
+                                <span
+                                    id="position">{{ auth()->user()->position == null ? '-' : auth()->user()->position }}</span>
                             </div>
                             <button class="btn btn-primary text-white px-3">Edit</button>
                         </div>
                         <div class="d-flex flex-column">
-                            <label for="username" class="text-secondary">Birthday</label>
-                            <span id="username">10/6/2002</span>
+                            <label for="birthday" class="text-secondary">Birthday</label>
+                            <span
+                                id="birthday">{{ auth()->user()->birthday == null ? '-' : auth()->user()->birthday }}</span>
                         </div>
                     </div>
                 </div>

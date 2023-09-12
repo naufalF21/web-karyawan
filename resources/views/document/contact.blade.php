@@ -20,8 +20,9 @@
                 <div class="mb-3">
                     <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="name" type="text" placeholder="Your Name" />
-                        <span class="input-group-text px-3 rounded-4">
+                        <input class="form-control py-2 rounded-start-4 border-end-0" id="name" name="name"
+                            type="text" placeholder="Your Name" value="{{ auth()->user()->name }}" required>
+                        <span class="input-group-text px-3 rounded-end-4 bg-white" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="20" viewBox="0 0 14 20"
                                 fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -37,9 +38,9 @@
                 <div class="mb-3">
                     <label for="email" class="form-label fw-bold">Email<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="email" type="email"
-                            placeholder="Email address" />
-                        <span class="input-group-text px-3 rounded-4">
+                        <input class="form-control py-2 rounded-start-4 border-end-0" id="email" name="email"
+                            type="email" placeholder="Email address" value="{{ auth()->user()->email }}" required />
+                        <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14"
                                 fill="none">
                                 <path
@@ -55,19 +56,27 @@
 
             <div class="btns-group mt-3">
                 <div class="mb-3">
-                    <label for="phone" class="form-label fw-bold">Phone Number<span class="text-danger">*</span></label>
+                    <label for="contact" class="form-label fw-bold">Phone Number<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="phone" type="phone"
-                            placeholder="0830XXXXXXXX" />
-                        <span class="input-group-text px-3 rounded-4">
+                        @if (auth()->user()->contact)
+                            <input class="form-control py-2 rounded-start-4 border-end-0" id="contact" name="contact"
+                                type="text" placeholder="0830XXXXXXXX" value="{{ auth()->user()->contact }}" required />
+                        @else
+                            <input class="form-control py-2 rounded-start-4 border-end-0" id="contact" name="contact"
+                                type="text" placeholder="0830XXXXXXXX"
+                                value="{{ $cacheData ? $cacheData['contact'] : '' }}" required />
+                        @endif
+                        <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="22" viewBox="0 0 13 22"
                                 fill="none">
                                 <path
                                     d="M10.029 1.27148H2.55166C1.63396 1.27148 0.890015 2.01543 0.890015 2.93313V18.7187C0.890015 19.6364 1.63396 20.3804 2.55166 20.3804H10.029C10.9467 20.3804 11.6907 19.6364 11.6907 18.7187V2.93313C11.6907 2.01543 10.9467 1.27148 10.029 1.27148Z"
-                                    stroke="#A0A3BD" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                    stroke="#A0A3BD" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                                 <path
                                     d="M9.01192 1.27148V2.36012C9.01192 2.64885 8.89723 2.92575 8.69307 3.12991C8.48891 3.33407 8.21201 3.44876 7.92328 3.44876H4.65737C4.36864 3.44876 4.09174 3.33407 3.88758 3.12991C3.68342 2.92575 3.56873 2.64885 3.56873 2.36012V1.27148"
-                                    stroke="#A0A3BD" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                    stroke="#A0A3BD" stroke-width="1.6" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
                         </span>
                     </div>
@@ -75,8 +84,15 @@
                 <div class="mb-3">
                     <label for="divisi" class="form-label fw-bold">Divisi<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="divisi" type="text" placeholder="Divisi" />
-                        <span class="input-group-text px-3 rounded-4">
+                        @if (auth()->user()->divisi)
+                            <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
+                                type="text" placeholder="Divisi" value="{{ auth()->user()->divisi }}" required />
+                        @else
+                            <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
+                                type="text" placeholder="Divisi" value="{{ $cacheData ? $cacheData['divisi'] : '' }}"
+                                required />
+                        @endif
+                        <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24"
                                 fill="none">
                                 <path

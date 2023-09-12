@@ -1,7 +1,7 @@
 @extends('layout')
 @section('container')
-    <form action="#" class="form" id="forms">
-
+    <form action="{{ route('cetak') }}" class="form" id="forms" method="get">
+        @csrf
         <div class="progressbar">
             <div class="progress bg-primary" id="progress" style="width: 100%; height: 4px;"></div>
 
@@ -48,10 +48,11 @@
                     days for the next update</p>
             </div>
 
-            <div class="btns-group mt-5">
-                <a href="{{ route($document) }}" class="btn btn-outline-primary">Previous</a>
-                <a href="#" id="submit-form" class="btn btn-primary fw-normal text-white">Submit</a>
+            <div class="btns-group mt-5" style="grid-template-columns: none;">
+                {{-- <a href="{{ route($document) }}" class="btn btn-outline-primary">Previous</a> --}}
+                <button type="submit" id="submit-form" class="btn btn-primary fw-normal text-white">Cetak</button>
             </div>
+
         </div>
     </form>
 @endsection
