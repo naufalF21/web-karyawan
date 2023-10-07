@@ -1,6 +1,21 @@
 @extends('layout')
 @section('container')
-    <div class="container mt-5">
+    <style>
+        @media (max-width: 575.98px) {
+            #wrapper {
+                flex-direction: column;
+            }
+
+            #hidden {
+                display: none;
+            }
+
+            #full-h {
+                min-height: auto;
+            }
+        }
+    </style>
+    <div class="container mt-5" id="full-h">
         <div class="d-flex flex-column align-items-center">
             <h1 class="fw-bold display-2" id="realtime-clock"></h1>
             <h5 class="display-6 fw-normal" id="realtime-date"></h5>
@@ -14,7 +29,7 @@
                     <span id="work-hours">00:00:00</span>
                 @endif
             </div>
-            <div class="d-flex gap-5 fs-5">
+            <div class="d-flex gap-5 fs-5" id="wrapper">
                 <form class="mx-5 d-flex align-items-center flex-column" method="post" action="{{ route('absen.store') }}">
                     @csrf
                     <span id="start-label" class="text-secondary">Start Date and Time</span>
@@ -23,7 +38,7 @@
                         <button class="btn btn-success text-white px-5 fs-4 fw-bold" id="in-btn" type="submit"
                             name="action" value="check_in">IN</button>
                     @else
-                        <p id="checkin-value">{{ $data->waktu_check_in }}</p>
+                        <p id="checkin-value">{{ $data->tanggal . ', ' . $data->waktu_check_in }}</p>
                         <button class="btn btn-secondary disabled text-white px-5 fs-4 fw-bold" id="in-btn"
                             type="submit" name="action" value="check_in">IN</button>
                     @endif
@@ -31,7 +46,7 @@
                 @if (!$data || $data->waktu_check_in == null)
                     {{--  --}}
                 @else
-                    <div>
+                    <div id="hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
                             class="bi bi-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -47,7 +62,7 @@
                             <button class="btn btn-danger text-white px-5 fs-4 fw-bold" id="out-btn" type="submit"
                                 name="action" value="check_out">OUT</button>
                         @else
-                            <p>{{ $data->waktu_check_out }}</p>
+                            <p>{{ $data->tanggal . ', ' . $data->waktu_check_out }}</p>
                             <button class="btn btn-secondary disabled text-white px-5 fs-4 fw-bold" id="out-btn"
                                 type="submit" name="action" value="check_out">OUT</button>
                         @endif
@@ -130,7 +145,7 @@
         }
 
         window.onload = function() {
-            // onChangeBtnIn();
+            onChangeBtnIn();
             if (inBtn.classList.contains("disabled")) {
                 updateTimer();
             }

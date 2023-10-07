@@ -51,16 +51,19 @@
                     </div>
                     <div class="card mb-4 ">
                         <div class="d-flex flex-row w-100 justify-content-between align-items-center pt-3 px-3">
-                            <div>Date: <span class="fw-bold">{{ $today }}</span></div>
+                            <div>Date: <span class="fw-bold">{{ $todayFormatted }}</span></div>
                             <div class="dropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle text-white"
                                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Filter
                                 </button>
-                                <form class="dropdown-menu p-4">
+                                <form class="dropdown-menu p-4" action="{{ route('absenDashboard.filter') }}"
+                                    method="get">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="exampleDropdownFormDate1" class="form-label">Date</label>
-                                        <input type="date" class="form-control" id="exampleDropdownFormDate1">
+                                        <input type="date" class="form-control" id="exampleDropdownFormDate1"
+                                            name="date">
                                     </div>
                                     <button type="submit" class="btn btn-primary text-white">Set</button>
                                 </form>
@@ -103,28 +106,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- @if ($user->absens->count() > 0)
-                                                    <td class="text-success">
-                                                        {{ $absen->handleInAndOut($user['id'], 'check_in') }}</td>
-                                                    <td class="text-danger">
-                                                        {{ $absen->handleInAndOut($user['id'], 'check_out') }}
-                                                    </td>
-                                                    <td>{{ $user->absens->last()->jam_kerja ?: '-' }}</td>
-                                                    <td>{{ $user->absens->last()->terlambat ? 'Yes' : 'No' }}</td>
-                                                    <td>-</td>
-                                                @else
-                                                    <td class="text-success">-</td>
-                                                    <td class="text-danger">-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
-                                                @endif --}}
-                                                <td class="text-success">
+                                                <td class="{{ $data->terlambat ? 'text-warning' : 'text-success' }}">
                                                     {{ $data->waktu_check_in }}</td>
                                                 <td class="text-danger">{{ $data->waktu_check_out ?: '-' }}</td>
                                                 <td>{{ $data->jam_kerja ?: '-' }}</td>
                                                 <td>{{ $data->terlambat ? 'Yes' : 'No' }}</td>
-                                                <td>-</td>
+                                                <td>{{ $lembur->hitungLemburPerHariIni($data->user_id) ?: '-' }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -132,18 +119,6 @@
                             </div>
                         </div>
                     </div>
-                    <footer class="py-4 bg-light mt-auto">
-                        <div class="container-fluid">
-                            <div class="d-flex align-items-center justify-content-between small">
-                                <div class="text-muted">Copyright &copy; PKL Algostudio 2023</div>
-                                <div>
-                                    <a href="#">Privacy Policy</a>
-                                    &middot;
-                                    <a href="#">Terms &amp; Conditions</a>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
                 </div>
             </main>
         </div>

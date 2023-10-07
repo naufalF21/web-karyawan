@@ -45,7 +45,7 @@ class AbsenController extends Controller
         }
 
         if ($action === 'check_in') {
-            $waktuCheckIn = $tanggal->format('Y-m-d h:i:s A');
+            $waktuCheckIn = $tanggal->format('h:i:s A');
 
             // Periksa apakah waktu check-in terlambat
             $batasTelat = Carbon::parse($tanggal)->setHour(8)->setMinute(40); // Contoh: Batas waktu telat jam 08:15 pagi
@@ -61,7 +61,7 @@ class AbsenController extends Controller
             $end = Carbon::parse($absensi->waktu_check_out);
 
             $workHours = $this->formatWorkHours($this->calculateWorkHours($start, $end));
-            $absensi->update(['waktu_check_out' => $tanggal->format('Y-m-d h:i:s A'), 'jam_kerja' => $workHours]);
+            $absensi->update(['waktu_check_out' => $tanggal->format('h:i:s A'), 'jam_kerja' => $workHours]);
             return redirect()->route('absen.done');
         }
 

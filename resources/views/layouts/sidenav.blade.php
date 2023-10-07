@@ -21,27 +21,32 @@
                 </div>
                 <div class="nav-item">
                     <a href="{{ route('absenDashboard') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('absenDashboard') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" xmlns="http://www.w3.org/2000/svg" width="21" height="20"
                             viewBox="0 0 21 20" fill="none">
                             <path
                                 d="M7.16667 18.3333H13.8333C17.1833 18.3333 17.7833 16.9917 17.9583 15.3583L18.5833 8.69167C18.8083 6.65833 18.225 5 14.6667 5H6.33333C2.775 5 2.19166 6.65833 2.41666 8.69167L3.04166 15.3583C3.21666 16.9917 3.81666 18.3333 7.16667 18.3333Z"
-                                stroke="{{ Route::is('absenDashboard') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M7.16669 5.00033V4.33366C7.16669 2.85866 7.16669 1.66699 9.83335 1.66699H11.1667C13.8334 1.66699 13.8334 2.85866 13.8334 4.33366V5.00033"
-                                stroke="{{ Route::is('absenDashboard') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path
                                 d="M12.1666 10.8333V11.6667C12.1666 11.675 12.1666 11.675 12.1666 11.6833C12.1666 12.5917 12.1583 13.3333 10.5 13.3333C8.84998 13.3333 8.83331 12.6 8.83331 11.6917V10.8333C8.83331 10 8.83331 10 9.66665 10H11.3333C12.1666 10 12.1666 10 12.1666 10.8333Z"
-                                stroke="{{ Route::is('absenDashboard') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path d="M18.5417 9.16699C16.6167 10.567 14.4167 11.4003 12.1667 11.6837"
-                                stroke="{{ Route::is('absenDashboard') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round" />
                             <path d="M2.68335 9.3916C4.55835 10.6749 6.67502 11.4499 8.83335 11.6916"
-                                stroke="{{ Route::is('absenDashboard') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                         Absen
                     </a>

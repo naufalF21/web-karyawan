@@ -1,5 +1,14 @@
 {{-- footer --}}
-<footer class="bg-primary text-white fixed-bottom">
+<style>
+    @media (max-width: 575.98px) {
+        #footer {
+            position: relative;
+            display: flex;
+            margin-top: 4rem;
+        }
+    }
+</style>
+<footer class="bg-primary text-white fixed-bottom" id="footer">
     <div class="container my-4">
         <div class="d-flex justify-content-between">
             <div>

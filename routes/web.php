@@ -90,4 +90,5 @@ Route::middleware('auth')->controller(EmployeeController::class)->group(function
 
 Route::middleware('auth')->controller(AbsenDashboardController::class)->group(function () {
     Route::get('/dashboard/absen', 'index')->name('absenDashboard');
+    Route::get('/dashboard/absen/filter', 'getFilter')->name('absenDashboard.filter');
 });
