@@ -119,7 +119,35 @@
 
             <div class="btns-group">
                 <a href="/document" class="btn btn-outline-primary">Previous</a>
-                <button type="submit" class="btn btn-primary fw-normal text-white">Next step</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary fw-normal text-white" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Submit
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content rounded-5" style="padding: 1rem 2rem;">
+                            <div class="modal-header border-0">
+                                <h1 class="modal-title fs-3 fw-bold" id="exampleModalLabel">Are you sure you
+                                    have filled in the
+                                    data correctly?</h1>
+                            </div>
+                            <div class="modal-body">
+                                <span class="text-primary">After the submit is done.</span><br />
+                                After the submission is complete.
+                                All data related to the Contact will be entered into the database.
+                            </div>
+                            <div class="modal-footer border-0">
+                                <button type="button" class="btn btn-outline-primary"
+                                    data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary fw-normal text-white">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- end Modal --}}
             </div>
         </div>
 

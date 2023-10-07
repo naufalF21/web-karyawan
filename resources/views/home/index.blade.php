@@ -20,14 +20,14 @@
                             <div class="h-100 text-bg-white rounded-3 text-lg-start">
                                 <p class="text-center text-lg-start fw-normal text-body-tertiary mb-0">Remaining Days Off
                                 </p>
-                                <p class="text-center fs-4 fw-normal text-lg-start">12 Day</p>
+                                <p class="text-center fs-4 fw-normal text-lg-start">{{ $remainingDaysOff }} Day</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="h-100 bg-body-white rounded-3 text-lg-start">
                                 <p class="text-center fw-normal text-body-tertiary mb-0 text-lg-start">Overtime Hours/Month
                                 </p>
-                                <p class="text-center fs-4 fw-normal text-lg-start">4h 30m</p>
+                                <p class="text-center fs-4 fw-normal text-lg-start">{{ $overtimeMonthly }}</p>
                             </div>
                         </div>
                     </div>

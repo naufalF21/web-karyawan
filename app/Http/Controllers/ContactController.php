@@ -23,8 +23,9 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $dokumen = Cache::get('form_type');
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
 
         // Validasi data 
         $validatedData = $request->validate([
@@ -34,13 +35,17 @@ class ContactController extends Controller
             'divisi' => 'required',
         ]);
 
-        Cache::put('form_contact', $validatedData, now()->addDay());
+        if ($validatedData) {
+            $user->contact = $validatedData['contact'];
+            $user->divisi = $validatedData['divisi'];
+            $user->save();
 
-        if ($dokumen == 'cuti') {
-            return redirect()->route('cuti');
-        }
-        if ($dokumen == 'lembur') {
-            return redirect()->route('lembur');
+            if ($dokumen == 'cuti') {
+                return redirect()->route('cuti');
+            }
+            if ($dokumen == 'lembur') {
+                return redirect()->route('lembur');
+            }
         }
     }
 }

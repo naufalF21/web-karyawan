@@ -10,32 +10,20 @@ class AbsenController extends Controller
 {
     public function index()
     {
-        $data = new Absen;
+        $absen = new Absen();
 
-        if (!$data->existingAbsen()) {
-            $data = null;
+        if ($absen->existingAbsen()) {
+            $absen = $absen->latest()->first();
+            if ($absen->jam_kerja) {
+                return redirect()->route('absen.done');
+            }
         } else {
-            $data = $data->latest()->first();
-
-            if ($data->waktu_check_in && $data->waktu_check_out) {
-                $start = Carbon::parse($data->waktu_check_in);
-                $end = Carbon::parse($data->waktu_check_out);
-
-                $workHours = $this->formatWorkHours($this->calculateWorkHours($start, $end));
-                $data->jam_kerja = $workHours;
-                $data->save();
-            }
-
-            if ($data->user_id == auth()->user()->id) {
-                if ($data->waktu_check_out && $data->waktu_check_in) {
-                    return redirect()->route('absen.done');
-                }
-            }
+            $absen = null;
         }
 
         return view('absen.index', [
             'title' => 'Absen',
-            'data' => $data,
+            'data' => $absen,
         ]);
     }
 
@@ -69,11 +57,32 @@ class AbsenController extends Controller
                 return redirect()->route('absen')->with('success', 'Check In berhasil dilakukan.');
             }
         } elseif ($action === 'check_out') {
-            $absensi->update(['waktu_check_out' => $tanggal->format('Y-m-d h:i:s A')]);
+            $start = Carbon::parse($absensi->waktu_check_in);
+            $end = Carbon::parse($absensi->waktu_check_out);
+
+            $workHours = $this->formatWorkHours($this->calculateWorkHours($start, $end));
+            $absensi->update(['waktu_check_out' => $tanggal->format('Y-m-d h:i:s A'), 'jam_kerja' => $workHours]);
             return redirect()->route('absen.done');
         }
 
         return redirect()->route('absen')->with('error', 'Tindakan tidak valid.');
+    }
+
+    public function done()
+    {
+        $today = now();
+        $userId = auth()->user()->id;
+        $absensi = Absen::where('user_id', $userId)
+            ->whereDate('tanggal', $today->toDateString())
+            ->first();
+
+        if ($absensi == null || $absensi->jam_kerja == null) {
+            return redirect()->route('absen');
+        }
+
+        return view('absen.done', [
+            'title' => 'Absen',
+        ]);
     }
 
     function calculateWorkHours(Carbon $start, Carbon $end)
@@ -89,17 +98,11 @@ class AbsenController extends Controller
 
     function formatWorkHours($workHours)
     {
+
         $hours = floor($workHours);
         $minutes = floor(($workHours - $hours) * 60);
         $seconds = round((($workHours - $hours) * 60 - $minutes) * 60);
 
         return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
-    }
-
-    public function done()
-    {
-        return view('absen.done', [
-            'title' => 'Absen',
-        ]);
     }
 }

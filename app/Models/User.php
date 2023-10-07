@@ -54,31 +54,13 @@ class User extends Authenticatable
         return $this->hasMany(Cuti::class);
     }
 
+    public function lemburs()
+    {
+        return $this->hasMany(Lembur::class);
+    }
+
     public function absens()
     {
         return $this->hasMany(Absen::class);
-    }
-
-    public function checkout()
-    {
-        $userId = auth()->user()->id;
-        $tanggal = now();
-
-        $absensi = Absen::where('user_id', $userId)
-            ->whereDate('tanggal', $tanggal->toDateString())
-            ->first();
-
-        if (!$absensi) {
-            $absensi = Absen::create([
-                'user_id' => $userId,
-                'tanggal' => $tanggal->toDateString(),
-            ]);
-        }
-
-        // Pastikan pengguna sudah masuk sebelum melakukan absen keluar.
-        if ($absensi->waktu_check_in && !$absensi->waktu_check_out) {
-            // dd($absensi->waktu_check_out);
-            $absensi->update(['waktu_check_out' => $tanggal->format('Y-m-d h:i:s A')]);
-        }
     }
 }

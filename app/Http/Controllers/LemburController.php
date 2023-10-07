@@ -45,9 +45,5 @@ class LemburController extends Controller
 
             return redirect()->route('submit');
         }
-        // Cache::put('form_lembur', $validatedData, now()->addDay());
-        // Cache::forget('form_cuti');
-
-
     }
 }

@@ -38,7 +38,7 @@
                         <label class="form-check-label text-body-tertiary" for="inlineRadio1">Hari Kerja</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio2" value="Hari Lembur"
+                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio2" value="Hari Libur"
                             required>
                         <label class="form-check-label text-body-tertiary" for="inlineRadio2">Hari Libur</label>
                     </div>

@@ -3,59 +3,164 @@
     <div class="container">
         <div class="row gap-5">
             @include('layouts.sidebar')
-            <div class="col-9">
-                <div class="d-flex mb-5">
-                    <div class="d-flex flex-column gap-3">
+            <form class="col-9" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col">
                         <h5 class="fw-bold">Profile Photo</h5>
-                        <img src="/assets/img/anime.png" alt="Rounded circle Image" class="rounded-circle" width="120"
-                            height="120" />
+                        @if (auth()->user()->photo_path)
+                            <img src="{{ asset('storage/profiles/' . auth()->user()->photo_path) }}"
+                                alt="Rounded circle Image" class="rounded-circle" width="120" height="120" />
+                        @else
+                            <img src="{{ 'https://ui-avatars.com/api/?background=random&name=' . auth()->user()->name }}"
+                                alt="Rounded circle Image" class="rounded-circle" width="120" height="120" />
+                        @endif
                     </div>
-                    <div class="d-flex justify-content-end align-items-center fw-bold gap-4" style="width: 70%">
-                        <a href="#" class="text-primary" style="height: fit-content">Remove photo</a>
-                        <a href="#" class="btn btn-primary fw-normal text-white px-3"
-                            style="height: fit-content">Change
-                            photo</a>
-                    </div>
-                </div>
-                <h5 class="fw-bold">Profile Information</h5>
-                <div class="pt-4 d-flex flex-row" style="gap: 10rem">
-                    <div class="d-flex flex-column gap-4 justify-content-between" style="width: 8rem">
-                        <div class="d-flex flex-column">
-                            <label for="username" class="text-secondary">Name</label>
-                            <span id="username">{{ auth()->user()->name == null ? '-' : auth()->user()->name }}</span>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <label for="address" class="text-secondary">Address</label>
-                            <span
-                                id="address">{{ auth()->user()->address == null ? '-' : auth()->user()->address }}</span>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <label for="contact" class="text-secondary">Contact</label>
-                            <span
-                                id="contact">{{ auth()->user()->contact == null ? '-' : auth()->user()->contact }}</span>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column gap-4 w-100 justify-content-between">
-                        <div class="d-flex flex-column">
-                            <label for="email" class="text-secondary">Email</label>
-                            <span id="email">{{ auth()->user()->email == null ? '-' : auth()->user()->email }}</span>
-                        </div>
-                        <div class="d-flex flex-row justify-content-between w-75">
-                            <div class="d-flex flex-column">
-                                <label for="position" class="text-secondary">Position</label>
-                                <span
-                                    id="position">{{ auth()->user()->position == null ? '-' : auth()->user()->position }}</span>
+                    <div class="col-5 d-flex align-items-center justify-content-end gap-3">
+                        @if (Route::is('profile.edit'))
+                            @if (auth()->user()->photo_path)
+                                <button type="button" class="btn btn-outline-primary" style="height: fit-content"
+                                    onclick="document.getElementById('remove-photo').submit();">Remove
+                                    photo</button>
+                            @endif
+                            <div class="input_container">
+                                <label for="files" class="btn btn-primary fw-normal text-white px-3">Change
+                                    photo</label>
+                                <input id="files" style="display:none;" type="file" name="photo_path">
                             </div>
-                            <button class="btn btn-primary text-white px-3">Edit</button>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <label for="birthday" class="text-secondary">Birthday</label>
-                            <span
-                                id="birthday">{{ auth()->user()->birthday == null ? '-' : auth()->user()->birthday }}</span>
+                        @endif
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <h5 class="fw-bold mt-5">Profile Information</h5>
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col d-flex flex-column gap-4">
+                                <div class="d-flex flex-column ">
+                                    <label for="username" class="text-secondary">Name</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="text" name="name" class="form-control"
+                                                value="{{ auth()->user()->name == null ? '' : auth()->user()->name }}"
+                                                placeholder="Enter your name" required>
+                                        </div>
+                                    @else
+                                        <span id="username"
+                                            class="fw-medium">{{ auth()->user()->name == null ? '-' : auth()->user()->name }}</span>
+                                    @endif
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <label for="contact" class="text-secondary">Address</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="text" name="address" class="form-control"
+                                                value="{{ auth()->user()->address == null ? '' : auth()->user()->address }}"
+                                                placeholder="Enter your address" required>
+                                        </div>
+                                    @else
+                                        <span id="address"
+                                            class="fw-medium">{{ auth()->user()->address == null ? '-' : auth()->user()->address }}</span>
+                                    @endif
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <label for="contact" class="text-secondary">Contact</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="text" name="contact" class="form-control"
+                                                value="{{ auth()->user()->contact == null ? '' : auth()->user()->contact }}"
+                                                placeholder="Enter your contact" required>
+                                        </div>
+                                    @else
+                                        <span id="contact"
+                                            class="fw-medium">{{ auth()->user()->contact == null ? '-' : auth()->user()->contact }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col d-flex flex-column gap-4">
+                                <div class="d-flex flex-column">
+                                    <label for="position" class="text-secondary">Email</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="email" name="email" class="form-control"
+                                                value="{{ auth()->user()->email == null ? '' : auth()->user()->email }}"
+                                                placeholder="Enter your email" required>
+                                        </div>
+                                    @else
+                                        <span id="email"
+                                            class="fw-medium">{{ auth()->user()->email == null ? '-' : auth()->user()->email }}</span>
+                                    @endif
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <label for="position" class="text-secondary">Position</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="text" name="position" class="form-control"
+                                                value="{{ auth()->user()->position == null ? '' : auth()->user()->position }}"
+                                                placeholder="Enter your position" required>
+                                        </div>
+                                    @else
+                                        <span id="position"
+                                            class="fw-medium">{{ auth()->user()->position == null ? '-' : auth()->user()->position }}</span>
+                                    @endif
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <label for="birthday" class="text-secondary">Birthday</label>
+                                    @if (Route::is('profile.edit'))
+                                        <div class="input-group">
+                                            <input type="date" name="birthday" class="form-control"
+                                                value="{{ auth()->user()->birthday == null ? '' : auth()->user()->birthday }}"
+                                                placeholder="Enter your birthday" required>
+                                        </div>
+                                    @else
+                                        <span id="birthday"
+                                            class="fw-medium">{{ auth()->user()->birthday == null ? '-' : auth()->user()->birthday }}</span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-2 d-flex justify-content-end align-items-center">
+                        @if (Route::is('profile.edit'))
+                            <div class="d-flex flex-column gap-3">
+                                <button type="submit" class="btn btn-primary text-white px-3">Simpan</button>
+                                <a href="{{ route('profile') }}" class="btn btn-outline-primary px-3">Cancel</a>
+                            </div>
+                        @else
+                            <a href="{{ route('profile.edit') }}" class="btn btn-primary text-white px-4 mt-2"
+                                style="height: fit-content">Edit</a>
+                        @endif
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{-- form remove photo --}}
+    <form id="remove-photo" action="{{ route('profile.delete') }}" method="post" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+    {{-- end form remove photo --}}
+    @if (session('success'))
+        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-end align-items-center w-100 pe-4">
+            <div class="toast align-items-center text-bg-success border-0 fade show px-2 py-1" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ session('success') }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+    <script>
+        document.querySelector("#files").onchange = function() {
+            const fileName = this.files[0]?.name;
+            const label = document.querySelector("label[for=files]");
+            label.innerText = fileName ?? "Browse Files";
+        };
+    </script>
 @endsection

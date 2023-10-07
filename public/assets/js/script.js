@@ -95,6 +95,7 @@ $(document).ready(function () {
         searching: true,
         // scrollY: 400,
     });
+    $(".toast").toast("show");
 });
 
 (function ($) {
@@ -113,4 +114,6 @@ $(document).ready(function () {
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
+    // $(".toast").toast("show");
 })(jQuery);

@@ -40,10 +40,10 @@
                                 Export</a>
                         </div>
                     </div>
-
-                    <hr>
-                    <p class="text-primary" style="border-bottom: 2px solid; width: 90px;height: 35px;">All Request</p>
-
+                    <div class="d-flex align-items-end mt-4">
+                        <p class="text-blues" style="border-bottom: 2px solid; width: 115px;height: 35px;">All Request</p>
+                        <hr class="w-100">
+                    </div>
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">

@@ -96,45 +96,49 @@
         // Update the clock every second
         setInterval(updateClock, 1000);
 
-        window.onload = function() {
-            onChangeBtnIn();
-            const workHours = document.getElementById("work-hours");
-            const outBtn = document.getElementById("out-btn");
-            let startTime;
-            let intervalId;
+        const workHours = document.getElementById("work-hours");
+        const outBtn = document.getElementById("out-btn");
+        const inBtn = document.getElementById("in-btn");
+        let startTime;
+        let intervalId;
+        if (workHours) {
+            startTime = parseInt(localStorage.getItem('startTime')) || Date.now();
+            intervalId = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - startTime;
+            const hours = Math.floor(elapsedTime / 3600000);
+            const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+            const seconds = Math.floor((elapsedTime % 60000) / 1000);
+
+            const formattedTime = padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
             if (workHours) {
-                startTime = parseInt(localStorage.getItem('startTime')) || Date.now();
-                intervalId = setInterval(updateTimer, 1000);
-                console.log(workHours)
+                workHours.innerText = formattedTime;
+            }
+            localStorage.setItem('startTime', startTime.toString()); // Save updated startTime
+        }
+
+        function padNumber(number) {
+            return (number < 10 ? "0" : "") + number;
+        }
+
+        function stopTimer() {
+            clearInterval(intervalId);
+            localStorage.removeItem('startTime');
+        }
+
+        window.onload = function() {
+            // onChangeBtnIn();
+            if (inBtn.classList.contains("disabled")) {
+                updateTimer();
             }
 
-            document.getElementById("out-btn").addEventListener("click", function() {
-                clearInterval(intervalId);
-                localStorage.removeItem('startTime');
+            outBtn.addEventListener("click", function() {
+                stopTimer();
             });
 
-            if (outBtn.classList.contains('disabled')) {
-                clearInterval(intervalId);
-                localStorage.removeItem('startTime');
-            }
-
-            function updateTimer() {
-                const currentTime = Date.now();
-                const elapsedTime = currentTime - startTime;
-                const hours = Math.floor(elapsedTime / 3600000);
-                const minutes = Math.floor((elapsedTime % 3600000) / 60000);
-                const seconds = Math.floor((elapsedTime % 60000) / 1000);
-
-                const formattedTime = padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
-                if (workHours) {
-                    workHours.innerText = formattedTime;
-                }
-                localStorage.setItem('startTime', startTime.toString()); // Save updated startTime
-            }
-
-            function padNumber(number) {
-                return (number < 10 ? "0" : "") + number;
-            }
         };
     </script>
 @endsection

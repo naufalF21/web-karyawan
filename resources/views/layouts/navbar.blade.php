@@ -30,8 +30,13 @@
                 </svg>
                 <div class="dropdown ms-3" style="cursor: pointer">
                     <div class="d-flex align-items-center gap-2 dropdown-toggle" data-bs-toggle="dropdown">
-                        <img src="/assets/img/profile.svg" alt="Gambar Profil" width="35" height="35"
-                            class="rounded-circle">
+                        @if (auth()->user()->photo_path)
+                            <img src="{{ asset('storage/profiles/' . auth()->user()->photo_path) }}" alt="Gambar Profil"
+                                width="35" height="35" class="rounded-circle" />
+                        @else
+                            <img src="{{ 'https://ui-avatars.com/api/?background=random&name=' . auth()->user()->name }}"
+                                alt="Gambar Profil" width="35" height="35" class="rounded-circle" />
+                        @endif
                         <div class="d-flex flex-column">
                             <span class="fw-bold">Hi {{ auth()->user()->name }}</span>
                             <span>Welcome</span>
@@ -41,10 +46,13 @@
                                     onclick="event.preventDefault();
                                 document.getElementById('profile-form').submit();">Profil</a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('dashboard.index') }}"
-                                    onclick="event.preventDefault();
-                                document.getElementById('dashboard-link').submit();">Dashboard</a>
-                            </li>
+                            @if (auth()->user()->role == 'admin')
+                                <li><a class="dropdown-item" href="{{ route('dashboard.index') }}"
+                                        onclick="event.preventDefault();
+                            document.getElementById('dashboard-link').submit();">Dashboard</a>
+                                </li>
+                            @endif
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

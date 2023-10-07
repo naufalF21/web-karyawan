@@ -45,8 +45,10 @@
                             </a>
                         </div>
                     </div>
-                    <hr>
-                    <p class="text-blues" style="border-bottom: 2px solid; width: 115px;height: 35px;">All Employees</p>
+                    <div class="d-flex align-items-end mt-4">
+                        <p class="text-blues" style="border-bottom: 2px solid; width: 115px;height: 35px;">All Employees</p>
+                        <hr class="w-100">
+                    </div>
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -80,7 +82,11 @@
                                                 <td class="text-danger">{{ $absen->hitungJamTerlambat($user['id']) }}</td>
                                                 <td>0</td>
                                                 <td>{{ $user->cutis->count() }}</td>
-                                                <td>01:30:00</td>
+                                                @if ($user->lemburs)
+                                                    <td>{{ $lembur->hitungTotalLembur($user['id']) }}</td>
+                                                @else
+                                                    <td>00:00:00</td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>

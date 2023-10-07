@@ -40,15 +40,9 @@ class CutiController extends Controller
             $cuti->sd_tanggal = $validatedData['sd_tanggal'];
             $cuti->masuk_tanggal = $validatedData['masuk_tanggal'];
             $cuti->lapor_tanggal = $validatedData['lapor_tanggal'];
-
             $cuti->save();
 
             return redirect()->route('submit');
         }
-
-        // Cache::put('form_cuti', $validatedData, now()->addDay());
-        // Cache::forget('form_cuti');
-
-
     }
 }

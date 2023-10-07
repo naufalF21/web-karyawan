@@ -26,7 +26,7 @@ class Absen extends Model
             ->first();
     }
 
-    public function hitungJamTerlambat($user_id)
+    public function hitungJamTerlambat()
     {
         $attendances = Absen::where('user_id', auth()->id())->get();
         // Inisialisasi total waktu telat
@@ -49,5 +49,27 @@ class Absen extends Model
         $totalLateTimeFormatted = gmdate("H:i:s", $totalLateTime);
 
         return $totalLateTimeFormatted;
+    }
+
+
+    public function handleInAndOut($userId, $type)
+    {
+        $absen = Absen::where('user_id', $userId)->latest()->first();
+        $value = '';
+        if ($type == 'check_in') {
+            $value = $absen->waktu_check_in;
+        } elseif ($type == 'check_out') {
+            $value = $absen->waktu_check_out;
+        }
+
+        if ($value == '') {
+            return '-';
+        } else {
+            $carbonDate = Carbon::parse($value);
+
+            $time = $carbonDate->format('h:i:s A');
+
+            return $time;
+        }
     }
 }

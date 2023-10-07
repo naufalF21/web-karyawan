@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\AbsenController;
+use App\Http\Controllers\Dashboard\AbsenDashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\Dashboard\EmployeeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LemburController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +36,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest')->name('register');
 Route::get('/register/verification', [RegisterController::class, 'verification'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
@@ -40,11 +44,7 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->midd
 Route::get('/forgot-password/verification', [ForgotPasswordController::class, 'verification'])->middleware('guest');
 Route::get('/forgot-password/change-password', [ForgotPasswordController::class, 'change'])->middleware('guest');
 
-Route::get('/home', function () {
-    return view('home.index', [
-        'title' => 'Home',
-    ]);
-})->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 Route::get('/absen', [AbsenController::class, 'index'])->middleware('auth')->name('absen');
 Route::post('/absen', [AbsenController::class, 'store'])->middleware('auth')->name('absen.store');
@@ -65,22 +65,29 @@ Route::post('/document/lembur', [LemburController::class, 'store'])->middleware(
 Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware('auth')->name('submit');
 Route::get('/document/cetak', [DocumentController::class, 'cetak'])->middleware('auth')->name('cetak');
 
-Route::get('/profile', function () {
-    return view('profile.index', [
-        'title' => 'Profile',
-    ]);
-})->middleware('auth')->name('profile');
-
-Route::get('/profile/settings', function () {
-    return view('profile.settings', [
-        'title' => 'Profile Settings',
-    ]);
-})->middleware('auth')->name('profile.settings');
+Route::middleware('auth')->controller(ProfileController::class)->group(function () {
+    Route::get('/profile', 'index')->name('profile');
+    Route::get('/profile/settings', 'settings')->name('profile.settings');
+    Route::get('/profile/edit', 'edit')->name('profile.edit');
+    Route::post('/profile/edit', 'update')->name('profile.update');
+    Route::delete('/profile/edit', 'delete')->name('profile.delete');
+});
 
 Route::middleware('auth')->controller(DashboardController::class)->name('dashboard.')->group(function () {
     Route::get('/dashboard', 'index')->name('index');
-    Route::get('/dashboard/absen', 'absen')->name('absen');
-    Route::get('/dashboard/employees', 'employees')->name('employees');
     Route::get('/dashboard/request', 'request')->name('request');
     Route::get('/dashboard/report', 'report')->name('report');
+});
+
+Route::middleware('auth')->controller(EmployeeController::class)->group(function () {
+    Route::get('/dashboard/employees', 'index')->name('employee');
+    Route::get('/dashboard/employees/add', 'add')->name('employee.add');
+    Route::get('/dashboard/employees/edit/{id}', 'edit')->name('employee.edit');
+    Route::post('/dashboard/employees/add', 'store')->name('employee.store');
+    Route::post('/dashboard/employees/edit/{id}', 'update')->name('employee.update');
+    Route::delete('/dashboard/employees/delete/{id}', 'delete')->name('employee.delete');
+});
+
+Route::middleware('auth')->controller(AbsenDashboardController::class)->group(function () {
+    Route::get('/dashboard/absen', 'index')->name('absenDashboard');
 });

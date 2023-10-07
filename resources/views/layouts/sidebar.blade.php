@@ -3,7 +3,7 @@
     <ul class="navbar-nav d-flex flex-column justify-content-between h-100">
         <li class="nav-item d-flex flex-column gap-3">
             <a href="{{ route('profile') }}"
-                class="text-black d-flex align-items-center gap-3 justify-content-center {{ Route::is('profile') ? 'sidebar-active' : '' }} "
+                class="text-black d-flex align-items-center gap-3 justify-content-center {{ Route::is('profile') || Route::is('profile.edit') ? 'sidebar-active' : '' }} "
                 style="padding: 0.6rem 0;" id="sidebarMenu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16" fill="none">
                     <path
