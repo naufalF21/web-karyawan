@@ -17,7 +17,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <a href="/"><img class="mx-auto mb-4" src="/assets/img/logo-algostudio.png" alt="logo-algostudio"></a>
+            <a href="/"><img class="mx-auto mb-4" src="/assets/img/logo-algostudio.svg" alt="logo-algostudio"></a>
             <p class="mx-auto mb-3 fw-normal text-body-tertiary">Login for next page</p>
             <div class="form-group input-group">
                 <input class="form-control rounded-4" id="email" type="email" placeholder="Your Email" name="email"

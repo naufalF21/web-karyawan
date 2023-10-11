@@ -26,29 +26,13 @@ class Absen extends Model
             ->first();
     }
 
-    public function hitungJamTerlambat()
+    public function hitungJamTerlambat($userId)
     {
-        $attendances = Absen::where('user_id', auth()->id())->get();
-        // Inisialisasi total waktu telat
-        $totalLateTime = 0;
+        $absens = Absen::where('user_id', $userId)
+            ->where('terlambat', true)
+            ->get();
 
-        // Loop melalui setiap catatan kehadiran
-        foreach ($attendances as $attendance) {
-            // Parse waktu check-in dan waktu yang diharapkan (pukul 08.40)
-            $checkIn = Carbon::parse($attendance->waktu_check_in);
-            $expectedCheckIn = Carbon::parse($attendance->waktu_check_in)->setHour(8)->setMinute(40)->setSecond(0);
-
-            // Check jika check-in dilakukan setelah pukul 16.10
-            if ($checkIn > $expectedCheckIn && $checkIn->format('H:i') > '16:10') {
-                $lateTimeInSeconds = $checkIn->diffInSeconds($expectedCheckIn);
-                $totalLateTime += $lateTimeInSeconds;
-            }
-        }
-
-        // Konversi total waktu telat ke format jam:menit:detik
-        $totalLateTimeFormatted = gmdate("H:i:s", $totalLateTime);
-
-        return $totalLateTimeFormatted;
+        return $absens->count();
     }
 
 

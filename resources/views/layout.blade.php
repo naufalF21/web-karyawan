@@ -1,5 +1,5 @@
 @php
-    $dashboard = ['dashboard.index', 'employee', 'employee.add', 'employee.edit', 'absenDashboard', 'absenDashboard.filter', 'dashboard.request', 'dashboard.report'];
+    $dashboard = ['dashboard.index', 'employee', 'employee.add', 'employee.edit', 'absenDashboard', 'absenDashboard.filter', 'request', 'request.cuti', 'request.lembur', 'dashboard.report'];
 @endphp
 
 <!doctype html>

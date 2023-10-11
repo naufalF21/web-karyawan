@@ -17,25 +17,4 @@ class DashboardController extends Controller
             'title' => 'Dashboard',
         ]);
     }
-
-    public function request()
-    {
-        return view('dashboard.request', [
-            'title' => 'Dashboard',
-        ]);
-    }
-
-    public function report()
-    {
-        $users = User::all();
-        $absen = new Absen();
-        $lembur = new Lembur();
-
-        return view('dashboard.report', [
-            'title' => 'Dashboard',
-            'users' => $users,
-            'absen' => $absen,
-            'lembur' => $lembur
-        ]);
-    }
 }

@@ -1,8 +1,5 @@
 @extends('layout')
 @section('container')
-    <style>
-        @media (max-width: 575.98px) {}
-    </style>
     <div class="container pt-4">
         <!-- Content here -->
         <div class="row gx-5 align-items-center justify-content-center">

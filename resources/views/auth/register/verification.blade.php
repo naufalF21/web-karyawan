@@ -1,30 +1,33 @@
 @extends('layout')
 @section('content')
-    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
-        <form action="/login" method="get"
-            class="form-signin text-start w-100 m-auto justify-content-center align-items-center">
-            @csrf
-            <p class="mx-auto mb-3 fw-normal text-primary fs-4 fw-bold">Register</p>
-            <p class="mx-auto mb-3 fw-normal">We have send an email to your email account with a verification code!</p>
-            <p class="mx-auto mb-3 fw-normal">Not received your code? <a
-                    class="link-offset-2 link-underline link-underline-opacity-0 text-primary" href="#">Resend Code</a>
-            </p>
-            <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
-                <input class="m-2 py-4 text-center form-control rounded" type="text" id="first" maxlength="1" />
-                <input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
-                <input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
-                <input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+    <style>
+        @media (max-width: 575.98px) {
+            #text {
+                width: 80%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #text {
+                width: 60%;
+            }
+        }
+    </style>
+    <div class="d-flex flex-column align-items-center justify-content-center w-100" style="height: 100vh">
+        <div class="d-flex flex-column text-start m-auto justify-content-center align-items-center">
+            <img class="mb-4" src="/assets/img/logo-algostudio.svg" alt="logo-algostudio">
+            <img class="mb-4 mt-4" height="80px" src="/assets/img/verification.svg" alt="logo-verification">
+            <span class="fw-normal text-primary fs-4 fw-bold text-center">Successfully created account</span>
+            <span class="fw-normal text-center mt-2 mb-4 w-60" id="text">Your request is being
+                reviewed,
+                please wait a
+                while to
+                wait
+                for approval from
+                admin! <br>Thank You.</span>
+            <div>
+                <a class="btn btn-primary w-100 py-2 px-4 text-white rounded-4 mt-4" href="{{ route('login') }}">Done</a>
             </div>
-            <div class="text-center mt-4">
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-outline-primary w-100 py-2 rounded-4" href="/login">Cancel</a>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary w-100 py-2 text-white mb-2 rounded-4" type="submit">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 @endsection

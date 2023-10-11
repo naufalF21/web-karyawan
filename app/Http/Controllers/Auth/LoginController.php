@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,15 @@ class LoginController extends Controller
         return view('auth.login.index', [
             'title' => 'Login'
         ]);
+    }
+
+    public function attemptLogin(Request $request)
+    {
+        $user = new User();
+        return Auth::attempt(
+            $this->credentials($request),
+            $request->filled('remember')
+        ) && $user->approved();
     }
 
     public function authenticate(Request $request)

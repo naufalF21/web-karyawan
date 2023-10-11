@@ -10,6 +10,8 @@ use App\Http\Controllers\Dashboard\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\ReportController;
+use App\Http\Controllers\Dashboard\RequestController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LemburController;
@@ -37,7 +39,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest')->name('register');
-Route::get('/register/verification', [RegisterController::class, 'verification'])->middleware('guest');
+Route::get('/register/verification', [RegisterController::class, 'verification'])->middleware('guest')->name('register.verification');
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->middleware('guest');
@@ -75,7 +77,6 @@ Route::middleware('auth')->controller(ProfileController::class)->group(function 
 
 Route::middleware('auth')->controller(DashboardController::class)->name('dashboard.')->group(function () {
     Route::get('/dashboard', 'index')->name('index');
-    Route::get('/dashboard/request', 'request')->name('request');
     Route::get('/dashboard/report', 'report')->name('report');
 });
 
@@ -91,4 +92,14 @@ Route::middleware('auth')->controller(EmployeeController::class)->group(function
 Route::middleware('auth')->controller(AbsenDashboardController::class)->group(function () {
     Route::get('/dashboard/absen', 'index')->name('absenDashboard');
     Route::get('/dashboard/absen/filter', 'getFilter')->name('absenDashboard.filter');
+});
+
+Route::middleware('auth')->controller(RequestController::class)->group(function () {
+    Route::get('/dashboard/request', 'index')->name('request');
+    Route::get('/dashboard/request/cuti', 'getCuti')->name('request.cuti');
+    Route::get('/dashboard/request/lembur', 'getLembur')->name('request.lembur');
+});
+
+Route::middleware('auth')->controller(ReportController::class)->group(function () {
+    Route::get('/dashboard/report', 'index')->name('report');
 });

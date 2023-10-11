@@ -85,42 +85,38 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="{{ route('dashboard.request') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('dashboard.request') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                    <a href="{{ route('request') }}"
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('request') ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M17.9167 5.24967V7.16551C17.9167 8.41634 17.125 9.20801 15.8742 9.20801H13.1667V3.67426C13.1667 2.79551 13.8871 2.08301 14.7659 2.08301C15.6288 2.09092 16.4204 2.43926 16.9904 3.00926C17.5604 3.58717 17.9167 4.37884 17.9167 5.24967Z"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is('request') ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M2.08331 6.04134V17.1247C2.08331 17.7818 2.82748 18.1538 3.34998 17.758L4.70373 16.7447C5.0204 16.5072 5.46373 16.5388 5.74873 16.8238L7.0629 18.1459C7.37165 18.4547 7.87831 18.4547 8.18706 18.1459L9.51706 16.8159C9.79415 16.5388 10.2375 16.5072 10.5462 16.7447L11.9 17.758C12.4225 18.1459 13.1666 17.7738 13.1666 17.1247V3.66634C13.1666 2.79551 13.8791 2.08301 14.75 2.08301H6.04165H5.24998C2.87498 2.08301 2.08331 3.50009 2.08331 5.24967V6.04134Z"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is('request') ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.625 10.7998H10"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.625 7.63281H10"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.24652 10.792H5.25363"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.24652 7.625H5.25363"
-                                stroke="{{ Route::is('dashboard.request') ? 'white' : 'black' }}" stroke-width="1.2"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7.625 10.7998H10" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7.625 7.63281H10" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M5.24652 10.792H5.25363" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M5.24652 7.625H5.25363" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                                stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
                         Request List</a>
                 </div>
                 <div class="nav-item">
-                    <a href="{{ route('dashboard.report') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('dashboard.report') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                    <a href="{{ route('report') }}"
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('report') ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M10 2.875C6.06497 2.875 2.875 6.06497 2.875 10C2.875 13.935 6.06497 17.125 10 17.125C13.935 17.125 17.125 13.935 17.125 10M10 2.875C13.935 2.875 17.125 6.06497 17.125 10M10 2.875V10M17.125 10H10M14.75 15.1458L10 10"
-                                stroke="{{ Route::is('dashboard.report') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is('report') ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         Report
@@ -135,10 +131,8 @@
                                 d="M2.83341 9.2996C2.83341 9.56877 2.6094 9.78728 2.33346 9.78728C2.05751 9.78728 1.83351 9.56877 1.83351 9.2996V4.47657C1.83351 2.92738 3.12558 1.66699 4.71438 1.66699H7.87835C9.47039 1.66699 10.7657 2.93054 10.7657 4.48354V5.07319C10.7657 5.34174 10.5417 5.56025 10.2658 5.56025C9.98982 5.56025 9.76581 5.34174 9.76581 5.07319V4.48354C9.76581 3.46763 8.91915 2.64236 7.87835 2.64236H4.71438C3.67683 2.64236 2.83341 3.46573 2.83341 4.47657V9.2996ZM9.76562 10.9281C9.76562 10.6589 9.98962 10.4404 10.2656 10.4404C10.5415 10.4404 10.7655 10.6589 10.7655 10.9281V11.5241C10.7655 13.0733 9.47344 14.3337 7.88464 14.3337H4.72003C3.12864 14.3337 1.83331 13.0701 1.83331 11.5171C1.83331 11.2479 2.05732 11.0301 2.33326 11.0301C2.60921 11.0301 2.83321 11.2479 2.83321 11.5171C2.83321 12.533 3.67988 13.3583 4.72003 13.3583H7.88464C8.9222 13.3583 9.76562 12.5356 9.76562 11.5241V10.9281ZM15.1288 7.81424C15.0516 7.6312 14.8691 7.51213 14.6665 7.51213H6.86605C6.5901 7.51213 6.36545 7.73127 6.36545 8.00045C6.36545 8.26963 6.5901 8.48814 6.86605 8.48814H13.4563L12.4168 9.49771C12.2207 9.68772 12.2207 9.99617 12.4155 10.1874C12.5129 10.2831 12.6414 10.3312 12.7693 10.3312C12.8972 10.3312 13.0245 10.2831 13.1226 10.1887L15.0198 8.34627C15.1626 8.20693 15.2061 7.99665 15.1288 7.81424ZM13.2479 7.10748C13.1206 7.10748 12.9933 7.05998 12.8959 6.96624L12.4174 6.50452C12.2213 6.31515 12.22 6.00607 12.4142 5.81543C12.609 5.62289 12.9245 5.62162 13.1213 5.81163L13.5991 6.27271C13.7959 6.46272 13.7972 6.77117 13.603 6.96244C13.505 7.05871 13.3764 7.10748 13.2479 7.10748Z"
                                 fill="#0095E6" />
                         </svg>
-
                         Log out
                     </a>
-
                 </div>
             </div>
         </div>

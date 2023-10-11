@@ -45,7 +45,7 @@
         <li class="nav-item d-flex flex-column">
             <hr class="text-secondary" />
 
-            <a href="#" class="text-black d-flex align-items-center gap-3 justify-content-center"
+            <a href="#" class="text-black d-flex align-items-center gap-3 justify-content-center mb-4"
                 style="padding: 0.6rem 0;" id="sidebarMenu"
                 onclick="event.preventDefault();
                 document.getElementById('sidebarLogout').submit();">

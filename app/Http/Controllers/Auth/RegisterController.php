@@ -36,7 +36,7 @@ class RegisterController extends Controller
             'password' => bcrypt($request->input('password')), // Enkripsi password menggunakan bcrypt
         ]);
 
-        return redirect('/login')->with('success', 'Registration successfull! Please login');
+        return redirect()->route('register.verification');
     }
 
     public function verification()

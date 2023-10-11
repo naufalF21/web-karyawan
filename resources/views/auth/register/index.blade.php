@@ -12,7 +12,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <img class="mx-auto mb-4" src="/assets/img/logo-algostudio.png" alt="logo-algostudio">
+            <img class="mx-auto mb-4" src="/assets/img/logo-algostudio.svg" alt="logo-algostudio">
             <p class="mx-auto mb-3 fw-normal text-body-tertiary">Register for next page</p>
             <div class="form-group input-group">
                 <input class="form-control py-2 rounded-4" id="name" type="text" placeholder="Your Name"
