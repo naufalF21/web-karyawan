@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Absen;
-use App\Models\Lembur;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $users = User::all();
+
         return view('dashboard.index', [
             'title' => 'Dashboard',
+            'users' => $users,
         ]);
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mulai_lembur');
             $table->string('sd_lembur');
             $table->string('uraian_kerja');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

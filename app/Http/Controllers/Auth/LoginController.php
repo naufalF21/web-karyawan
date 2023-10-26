@@ -16,28 +16,21 @@ class LoginController extends Controller
         ]);
     }
 
-    public function attemptLogin(Request $request)
-    {
-        $user = new User();
-        return Auth::attempt(
-            $this->credentials($request),
-            $request->filled('remember')
-        ) && $user->approved();
-    }
-
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email:dns'],
             'password' => ['required'],
         ]);
+        $credentials['is_approved'] = 'true';
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
             return redirect()->intended('/home');
         }
 
-        return back()->with('loginError', 'Login Failed: Please check your email or password and try again.')->withErrors('email');
+        return back()->with('loginError', 'Login Failed: Please check your email or password and try again or your account has not been approved yet.')->withErrors('email');
     }
 
     public function logout()

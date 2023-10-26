@@ -85,25 +85,28 @@
                     </a>
                 </div>
                 <div class="nav-item">
+                    @php
+                        $request = ['request', 'request.cuti', 'request.cuti.filter', 'request.lembur'];
+                    @endphp
                     <a href="{{ route('request') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('request') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is($request) ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M17.9167 5.24967V7.16551C17.9167 8.41634 17.125 9.20801 15.8742 9.20801H13.1667V3.67426C13.1667 2.79551 13.8871 2.08301 14.7659 2.08301C15.6288 2.09092 16.4204 2.43926 16.9904 3.00926C17.5604 3.58717 17.9167 4.37884 17.9167 5.24967Z"
-                                stroke="{{ Route::is('request') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is($request) ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M2.08331 6.04134V17.1247C2.08331 17.7818 2.82748 18.1538 3.34998 17.758L4.70373 16.7447C5.0204 16.5072 5.46373 16.5388 5.74873 16.8238L7.0629 18.1459C7.37165 18.4547 7.87831 18.4547 8.18706 18.1459L9.51706 16.8159C9.79415 16.5388 10.2375 16.5072 10.5462 16.7447L11.9 17.758C12.4225 18.1459 13.1666 17.7738 13.1666 17.1247V3.66634C13.1666 2.79551 13.8791 2.08301 14.75 2.08301H6.04165H5.24998C2.87498 2.08301 2.08331 3.50009 2.08331 5.24967V6.04134Z"
-                                stroke="{{ Route::is('request') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is($request) ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.625 10.7998H10" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                            <path d="M7.625 10.7998H10" stroke="{{ Route::is($request) ? 'white' : 'black' }}"
                                 stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.625 7.63281H10" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                            <path d="M7.625 7.63281H10" stroke="{{ Route::is($request) ? 'white' : 'black' }}"
                                 stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.24652 10.792H5.25363" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                            <path d="M5.24652 10.792H5.25363" stroke="{{ Route::is($request) ? 'white' : 'black' }}"
                                 stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.24652 7.625H5.25363" stroke="{{ Route::is('request') ? 'white' : 'black' }}"
+                            <path d="M5.24652 7.625H5.25363" stroke="{{ Route::is($request) ? 'white' : 'black' }}"
                                 stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
 
@@ -124,7 +127,9 @@
                 </div>
                 <div class="nav-item mt-4">
                     <a href="#"
-                        class="btn btn-light fw-normal rounded-pill text-primary text-start w-100 ps-4 mt-2">
+                        class="btn btn-light fw-normal rounded-pill text-primary text-start w-100 ps-4 mt-2"
+                        onclick="event.preventDefault();
+                        document.getElementById('sidenavLogout').submit();">
                         <svg class="mr-1 mb-1" width="17" height="16" viewBox="0 0 17 16" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -133,6 +138,9 @@
                         </svg>
                         Log out
                     </a>
+                    <form id="sidenavLogout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

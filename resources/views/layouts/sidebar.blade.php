@@ -57,7 +57,7 @@
                 </svg>
                 <span>Log Out</span>
             </a>
-            <form id="sidebarLogout" action="{{ url('/logout') }}" method="POST" style="display: none;">
+            <form id="sidebarLogout" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
         </li>

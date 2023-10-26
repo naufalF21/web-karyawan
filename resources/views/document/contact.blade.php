@@ -12,12 +12,30 @@
         </div>
         <hr class="bg-secondary" />
         <div class="step-forms step-forms-active">
-            <div class="mb-4">
+            <div>
                 <p class="fw-normal fw-bold mb-0">Contact details</p>
                 <p class="fw-normal text-body-tertiary">Isi kolom dibawah ini dengan sebenar-benarnya</p>
             </div>
+            @if ($jenis_dokumen == 'cuti')
+                <div class="d-flex gap-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="jenis" id="flexRadioDefault1" value="harian"
+                            required>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Cuti Harian
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="jenis" id="flexRadioDefault2" value="perjam"
+                            required>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Cuti Per-jam
+                        </label>
+                    </div>
+                </div>
+            @endif
             <div class="btns-group mt-3">
-                <div class="mb-3">
+                <div>
                     <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
                         <input class="form-control py-2 rounded-start-4 border-end-0" id="name" name="name"
@@ -35,7 +53,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="mb-3">
+                <div>
                     <label for="email" class="form-label fw-bold">Email<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
                         <input class="form-control py-2 rounded-start-4 border-end-0" id="email" name="email"
@@ -55,17 +73,12 @@
             </div>
 
             <div class="btns-group mt-3">
-                <div class="mb-3">
+                <div>
                     <label for="contact" class="form-label fw-bold">Phone Number<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        @if (auth()->user()->contact)
-                            <input class="form-control py-2 rounded-start-4 border-end-0" id="contact" name="contact"
-                                type="text" placeholder="0830XXXXXXXX" value="{{ auth()->user()->contact }}" required />
-                        @else
-                            <input class="form-control py-2 rounded-start-4 border-end-0" id="contact" name="contact"
-                                type="text" placeholder="0830XXXXXXXX"
-                                value="{{ $cacheData ? $cacheData['contact'] : '' }}" required />
-                        @endif
+                        <input class="form-control py-2 rounded-start-4 border-end-0" id="contact" name="contact"
+                            type="text" placeholder="0830XXXXXXXX" value="{{ auth()->user()->contact }}" required />
+
                         <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="22" viewBox="0 0 13 22"
                                 fill="none">
@@ -81,17 +94,12 @@
                         </span>
                     </div>
                 </div>
-                <div class="mb-3">
+                <div>
                     <label for="divisi" class="form-label fw-bold">Divisi<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        @if (auth()->user()->divisi)
-                            <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
-                                type="text" placeholder="Divisi" value="{{ auth()->user()->divisi }}" required />
-                        @else
-                            <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
-                                type="text" placeholder="Divisi" value="{{ $cacheData ? $cacheData['divisi'] : '' }}"
-                                required />
-                        @endif
+                        <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
+                            type="text" placeholder="Divisi" value="{{ auth()->user()->divisi }}" required />
+
                         <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24"
                                 fill="none">

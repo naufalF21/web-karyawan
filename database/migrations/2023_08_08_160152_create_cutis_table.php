@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('jenis');
-            $table->date('dari_tanggal');
-            $table->date('sd_tanggal');
-            $table->date('masuk_tanggal');
-            $table->date('lapor_tanggal');
+            $table->date('tanggal')->nullable();
+            $table->time('mulai_jam_cuti')->nullable();
+            $table->time('sd_jam_cuti')->nullable();
+            $table->date('sd_tanggal')->nullable();
+            $table->date('masuk_tanggal')->nullable();
+            $table->date('lapor_tanggal')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

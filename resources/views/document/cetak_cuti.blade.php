@@ -54,7 +54,7 @@
         <h4 class="uppercase text-center">Surat Permohonan Cuti</h4>
         <div class="mb-1">
             <p>Hal : Permohonan Cuti {{ $data->jenis }}</p>
-            <p>Tanggal : {{ $data->created_at->format('Y-m-d') }}</p>
+            <p>Tanggal : {{ $data->created_at->format('F d, Y') }}</p>
         </div>
         <div class="mb-1">
             <p>Kepada Yth.</p>
@@ -65,14 +65,23 @@
             <p>Yang bertanda tangan di bawah ini</p>
         </div>
         <div class="mb-1">
-            <p>Nama : {{ auth()->user()->name }}</p>
-            <p>Email : {{ auth()->user()->email }}</p>
-            <p>Handphone : {{ auth()->user()->contact }}</p>
-            <p>Divisi : {{ auth()->user()->divisi }}</p>
+            <p>Nama : {{ $data->user->name }}</p>
+            <p>Email : {{ $data->user->email }}</p>
+            <p>Handphone : {{ $data->user->contact }}</p>
+            <p>Divisi : {{ $data->user->divisi }}</p>
+            @if ($data->jenis == 'Harian')
+                <p>Keterangan : {{ $data->keterangan }}</p>
+            @endif
         </div>
         <div class="mb-1">
-            <p>Bermaksud mengajukan cuti {{ $data->jenis }} dari tanggal {{ $data->dari_tanggal }} s/d
-                tanggal {{ $data->sd_tanggal }}</p>
+            @if ($data->jenis == 'Harian')
+                <p>Bermaksud mengajukan cuti {{ $data->jenis }} dari jam {{ $data->mulai_jam_cuti }} s/d
+                    jam {{ $data->sd_jam_cuti }}</p>
+            @else
+                <p>Bermaksud mengajukan cuti {{ $data->jenis }} dari tanggal {{ $data->tanggal }} s/d
+                    tanggal {{ $data->sd_tanggal }}</p>
+            @endif
+
         </div>
         <div class="mb-1">
             <p>
@@ -94,7 +103,7 @@
                 </tr>
                 <tr>
                     <td class="pr-15">M. Faizal Sukma Dika</td>
-                    <td>{{ auth()->user()->name }}</td>
+                    <td>{{ $data->user->name }}</td>
                 </tr>
             </table>
         </div>

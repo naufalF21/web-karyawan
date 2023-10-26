@@ -4,11 +4,11 @@
             href="{{ route('request') }}">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ Route::is('request.cuti') ? 'active text-primary' : 'text-secondary' }}"
+        <a class="nav-link {{ Route::is('request.cuti') || Route::is('request.cuti.filter') ? 'active text-primary' : 'text-secondary' }}"
             href="{{ route('request.cuti') }}">Cuti</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ Route::is('request.lembur') ? 'active text-primary' : 'text-secondary' }}"
+        <a class="nav-link {{ Route::is('request.lembur') || Route::is('request.lembur.filter') ? 'active text-primary' : 'text-secondary' }}"
             href="{{ route('request.lembur') }}">Lembur</a>
     </li>
 </ul>

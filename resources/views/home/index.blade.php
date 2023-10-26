@@ -20,7 +20,7 @@
                             <div class="h-100 text-bg-white rounded-3 text-lg-start">
                                 <p class="text-center text-lg-start fw-normal text-body-tertiary mb-0">Remaining Days Off
                                 </p>
-                                <p class="text-center fs-4 fw-normal text-lg-start">{{ $remainingDaysOff }} Day</p>
+                                <p class="text-center fs-4 fw-normal text-lg-start">{{ $remainingDaysOff }}</p>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -23,7 +23,7 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    54</small></h3>
+                                    {{ $users->count() }}</small></h3>
                         </div>
                         <div class="col-6 col-md-4 d-flex justify-content-sm-end justify-content-start">
                             <a href="#" class="btn text-black" style="border-color: #E6E7EC">
@@ -59,34 +59,63 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td>{{ $user['name'] }}</td>
-                                                <td>{{ $user['email'] }}</td>
-                                                <td class="{{ $user['is_approved'] ? 'text-success' : 'text-warning' }}">
-                                                    {{ $user['is_approved'] ? 'Verified' : 'Waiting For Verification' }}
+                                                <td>
+                                                    {{ $user['email'] }}
+                                                    @if ($user['email_verified_at'])
+                                                        <span class="badge text-bg-success ml-2">Verified</span>
+                                                    @else
+                                                        <span class="badge text-bg-danger ml-2">Not verified</span>
+                                                    @endif
                                                 </td>
+                                                @if ($user['is_approved'])
+                                                    <td
+                                                        class="{{ $user['is_approved'] == 'true' ? 'text-success' : 'text-danger' }}">
+                                                        {{ $user['is_approved'] == 'true' ? 'Approved' : 'Not approved' }}
+                                                    </td>
+                                                @else
+                                                    <td class="text-warning">
+                                                        Pending approval
+                                                    </td>
+                                                @endif
                                                 <td class="d-flex align-items-center">
-                                                    <a href="#" class="mr-3">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                            height="30" viewBox="0 0 30 30" fill="none">
-                                                            <circle cx="15" cy="15" r="15"
-                                                                fill="#FF5454" />
-                                                            <path d="M20 10L10 20" stroke="white" stroke-width="4"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M20 20L10 10" stroke="white" stroke-width="4"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                    <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                            height="30" viewBox="0 0 30 30" fill="none">
-                                                            <circle cx="15" cy="15" r="15"
-                                                                fill="#00E895" />
-                                                            <path d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
-                                                                fill="#00E895" />
-                                                            <path d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
-                                                                stroke="white" stroke-width="4" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
+                                                    @if ($user['is_approved'])
+                                                        <span>-</span>
+                                                    @else
+                                                        <form action="{{ route('request.rejected', $user['id']) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit" class="border-0 bg-transparent mr-3">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                                                    height="30" viewBox="0 0 30 30" fill="none">
+                                                                    <circle cx="15" cy="15" r="15"
+                                                                        fill="#FF5454" />
+                                                                    <path d="M20 10L10 20" stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M20 20L10 10" stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+
+                                                        <form action="{{ route('request.approve', $user['id']) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit" class="border-0 bg-transparent ">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                                                    height="30" viewBox="0 0 30 30" fill="none">
+                                                                    <circle cx="15" cy="15" r="15"
+                                                                        fill="#00E895" />
+                                                                    <path
+                                                                        d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
+                                                                        fill="#00E895" />
+                                                                    <path
+                                                                        d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
+                                                                        stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -97,7 +126,6 @@
                     </div>
                 </div>
             </main>
-
         </div>
     </div>
 @endsection

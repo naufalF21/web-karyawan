@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -30,11 +31,13 @@ class RegisterController extends Controller
                 ->withInput();
         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')), // Enkripsi password menggunakan bcrypt
         ]);
+
+        event(new Registered($user));
 
         return redirect()->route('register.verification');
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,6 +15,13 @@ class Lembur extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function filterDate(Request $request)
+    {
+        $date = $request->input('date');
+        $lemburs = Lembur::whereDate('tanggal_lembur', $date)->get();
+        return $lemburs;
     }
 
     public function hitungTotalLemburPerBulan()

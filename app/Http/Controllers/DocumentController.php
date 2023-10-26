@@ -15,7 +15,6 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        // dd(Cache::get('form_type'));
         $cacheData = '';
         if (Cache::get('form_type')) {
             $cacheData = Cache::get('form_type');

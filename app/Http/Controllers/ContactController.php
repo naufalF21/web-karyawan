@@ -10,20 +10,18 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
-        $cacheData = '';
-        if (Cache::get('form_contact')) {
-            $cacheData = Cache::get('form_contact');
-        }
+        $jenis_dokumen = Cache::get('form_type');
         return view('document.contact', [
             'title' => 'Document Contact',
             'document' => $request->query('document'),
-            'cacheData' => $cacheData
+            'jenis_dokumen' => $jenis_dokumen
         ]);
     }
 
     public function store(Request $request)
     {
         $dokumen = Cache::get('form_type');
+        $jenis_cuti = $request['jenis'];
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
 
@@ -41,7 +39,11 @@ class ContactController extends Controller
             $user->save();
 
             if ($dokumen == 'cuti') {
-                return redirect()->route('cuti');
+                if ($jenis_cuti == 'harian') {
+                    return redirect()->route('cuti.harian');
+                } else if ($jenis_cuti == 'perjam') {
+                    return redirect()->route('cuti.perjam');
+                }
             }
             if ($dokumen == 'lembur') {
                 return redirect()->route('lembur');

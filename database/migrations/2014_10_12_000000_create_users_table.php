@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('divisi')->nullable();
             $table->date('birthday')->nullable();
             $table->string('photo_path')->nullable();
+            $table->string('is_approved')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

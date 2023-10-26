@@ -56,10 +56,10 @@
             <p>Yang bertanda tangan di bawah ini :</p>
         </div>
         <div class="mb-1">
-            <p>Nama : {{ auth()->user()->name }}</p>
-            <p>Email : {{ auth()->user()->email }}</p>
-            <p>Handphone : {{ auth()->user()->contact }}</p>
-            <p>Divisi : {{ auth()->user()->divisi }}</p>
+            <p>Nama : {{ $data->user->name }}</p>
+            <p>Email : {{ $data->user->email }}</p>
+            <p>Handphone : {{ $data->user->contact }}</p>
+            <p>Divisi : {{ $data->user->divisi }}</p>
         </div>
         <div class="mb-1">
             <p>Memberitahukan dan memohon izin untuk melaksanakan kerja lembur pada :</p>
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                     <td class="pr-15">M. Faizal Sukma Dika</td>
-                    <td>{{ auth()->user()->name }}</td>
+                    <td>{{ $data->user->name }}</td>
                 </tr>
             </table>
         </div>

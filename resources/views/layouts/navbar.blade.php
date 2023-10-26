@@ -18,7 +18,7 @@
                         href="{{ url('/absen') }}">Absen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('document') || Route::is('contact') || Route::is('cuti') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold border-2 border-dark border-bottom' : '' }}"
+                    <a class="nav-link {{ Route::is('document') || Route::is('contact') || Route::is('cuti.perjam') || Route::is('cuti.harian') || Route::is('lembur') || Route::is('submit') ? 'active fw-bold border-2 border-dark border-bottom' : '' }}"
                         href="{{ url('/document') }}">Documents</a>
                 </li>
             </ul>

@@ -1,7 +1,7 @@
 @extends('layout')
 @section('container')
     {{-- @dd($cacheData); --}}
-    <form action="{{ route('cuti.store') }}" class="form" id="forms" method="post">
+    <form action="{{ route('cuti.harian.store') }}" class="form" id="forms" method="post">
         @csrf
         <div class="progressbar">
             <div class="progress bg-primary" id="progress" style="width: 66.6667%; height: 4px;"></div>
@@ -19,59 +19,34 @@
                 <p class="fw-normal text-body-tertiary">Cuti yang akan di ambil<span class="text-danger">*</span></p>
             </div>
             <div class="mb-3 d-flex justify-content-between">
-                @if ($cacheData)
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio1" value="Tahunan"
-                            required {{ $cacheData['jenis'] == 'Tahunan' ? 'checked' : '' }}>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio1">Tahunan</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio2" value="Nikah"
-                            required {{ $cacheData['jenis'] == 'Nikah' ? 'checked' : '' }}>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio2">Nikah</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio3"
-                            value="Hamil/Bersalin" required {{ $cacheData['jenis'] == 'Hamil/Bersalin' ? 'checked' : '' }}>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio3">Hamil/Bersalin</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio4" value="Kematian"
-                            required {{ $cacheData['jenis'] == 'Kematian' ? 'checked' : '' }}>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio4">Kematian</label>
-                    </div>
-                @else
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio1" value="Tahunan"
-                            required>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio1">Tahunan</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio2" value="Nikah"
-                            required>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio2">Nikah</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio3"
-                            value="Hamil/Bersalin" required>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio3">Hamil/Bersalin</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="jenis" id="inlineRadio4" value="Kematian"
-                            required>
-                        <label class="form-check-label text-body-tertiary" for="inlineRadio4">Kematian</label>
-                    </div>
-                @endif
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="jenis" id="inlineRadio1" value="Tahunan"
+                        required>
+                    <label class="form-check-label text-body-tertiary" for="inlineRadio1">Tahunan</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="jenis" id="inlineRadio2" value="Nikah" required>
+                    <label class="form-check-label text-body-tertiary" for="inlineRadio2">Nikah</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="jenis" id="inlineRadio3" value="Hamil/Bersalin"
+                        required>
+                    <label class="form-check-label text-body-tertiary" for="inlineRadio3">Hamil/Bersalin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="jenis" id="inlineRadio4" value="Kematian"
+                        required>
+                    <label class="form-check-label text-body-tertiary" for="inlineRadio4">Kematian</label>
+                </div>
 
             </div>
 
             <div class="btns-group mt-3">
                 <div>
-                    <label for="dari-tanggal" class="form-label fw-bold">Dari Tanggal<span
-                            class="text-danger">*</span></label>
+                    <label for="tanggal" class="form-label fw-bold">Dari Tanggal<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="dari-tanggal" type="date" name="dari_tanggal"
-                            required value="{{ $cacheData ? $cacheData['dari_tanggal'] : '' }}" />
+                        <input class="form-control py-2 rounded-4" id="tanggal" type="date" name="tanggal" required />
                     </div>
                 </div>
                 <div>
@@ -79,7 +54,7 @@
                             class="text-danger">*</span></label>
                     <div class="form-group input-group">
                         <input class="form-control py-2 rounded-4" id="sd-tanggal" type="date" name="sd_tanggal"
-                            required value="{{ $cacheData ? $cacheData['sd_tanggal'] : '' }}" />
+                            required />
                     </div>
                 </div>
             </div>
@@ -88,16 +63,16 @@
                     <label for="dari-tanggal" class="form-label fw-bold">Masuk Tanggal<span
                             class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="masuk-tanggal" type="date"
-                            name="masuk_tanggal" required value="{{ $cacheData ? $cacheData['masuk_tanggal'] : '' }}" />
+                        <input class="form-control py-2 rounded-4" id="masuk-tanggal" type="date" name="masuk_tanggal"
+                            required />
                     </div>
                 </div>
                 <div>
                     <label for="dari-tanggal" class="form-label fw-bold">Tanggal Lapor HR<span
                             class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-4" id="lapor-tanggal" type="date"
-                            name="lapor_tanggal" required value="{{ $cacheData ? $cacheData['lapor_tanggal'] : '' }}" />
+                        <input class="form-control py-2 rounded-4" id="lapor-tanggal" type="date" name="lapor_tanggal"
+                            required />
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    54</small></h3>
+                                    {{ $cutis->count() }}</small></h3>
                         </div>
                         <div class="col-6 col-md-4 d-flex justify-content-sm-end justify-content-start">
                             <a href="#" class="btn text-black" style="border-color: #E6E7EC">
@@ -44,6 +44,26 @@
                     @include('components.tab')
                     {{-- end tab --}}
                     <div class="card mb-4">
+                        <div class="d-flex flex-row w-100 justify-content-between align-items-center pt-3 px-3">
+                            <div>Date: <span class="fw-bold">{{ $date }}</span></div>
+                            {{-- filter dropdown --}}
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle text-white"
+                                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    Filter
+                                </button>
+                                <form class="dropdown-menu p-4" action="{{ route('request.cuti.filter') }}" method="get">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="exampleDropdownFormDate1" class="form-label">Date</label>
+                                        <input type="date" class="form-control" id="exampleDropdownFormDate1"
+                                            name="date">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary text-white">Set</button>
+                                </form>
+                            </div>
+                            {{-- end filter dropdown --}}
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" id="dataTable" width="100%" cellspacing="0">
@@ -56,15 +76,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
+                                        @foreach ($cutis as $cuti)
                                             <tr>
-                                                <td>{{ $user['name'] }}</td>
-                                                <td>{{ $user['email'] }}</td>
-                                                <td class="{{ $user['is_approved'] ? 'text-success' : 'text-warning' }}">
-                                                    {{ $user['is_approved'] ? 'Verified' : 'Waiting For Verification' }}
-                                                </td>
+                                                <td>{{ $cuti->user->name }}</td>
+                                                <td>{{ $cuti->user->email }}</td>
+                                                @if ($cuti->status)
+                                                    <td
+                                                        class="{{ $cuti->status == 'true' ? 'text-success' : 'text-danger' }}">
+                                                        {{ $cuti->status == 'true' ? 'Approved' : 'Not approved' }}</td>
+                                                @else
+                                                    <td class="text-warning">Pending approval</td>
+                                                @endif
                                                 <td class="d-flex align-items-center">
-                                                    <a href="#">
+                                                    <a href="{{ route('request.cuti.detail', ['id' => $cuti['id']]) }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22"
                                                             height="22" viewBox="0 0 18 18" fill="none">
                                                             <path
@@ -75,29 +99,44 @@
                                                                 stroke="#333434" stroke-width="2" />
                                                         </svg>
                                                     </a>
-                                                    <a href="#" class="mr-3 ml-5">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                            height="30" viewBox="0 0 30 30" fill="none">
-                                                            <circle cx="15" cy="15" r="15"
-                                                                fill="#FF5454" />
-                                                            <path d="M20 10L10 20" stroke="white" stroke-width="4"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                            <path d="M20 20L10 10" stroke="white" stroke-width="4"
-                                                                stroke-linecap="round" stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
-                                                    <a href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30"
-                                                            height="30" viewBox="0 0 30 30" fill="none">
-                                                            <circle cx="15" cy="15" r="15"
-                                                                fill="#00E895" />
-                                                            <path d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
-                                                                fill="#00E895" />
-                                                            <path d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
-                                                                stroke="white" stroke-width="4" stroke-linecap="round"
-                                                                stroke-linejoin="round" />
-                                                        </svg>
-                                                    </a>
+                                                    @if ($cuti->status)
+                                                        <span class="ml-4">-</span>
+                                                    @else
+                                                        <form action="{{ route('request.cuti.rejected', $cuti->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="border-0 bg-transparent mr-3 ml-4">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                                                    height="30" viewBox="0 0 30 30" fill="none">
+                                                                    <circle cx="15" cy="15" r="15"
+                                                                        fill="#FF5454" />
+                                                                    <path d="M20 10L10 20" stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M20 20L10 10" stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                        <form action="{{ route('request.cuti.approve', $cuti->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit" class="border-0 bg-transparent">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                                                    height="30" viewBox="0 0 30 30" fill="none">
+                                                                    <circle cx="15" cy="15" r="15"
+                                                                        fill="#00E895" />
+                                                                    <path
+                                                                        d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
+                                                                        fill="#00E895" />
+                                                                    <path
+                                                                        d="M9.32092 15.8111L12.5661 19.0562L20.6789 10.9434"
+                                                                        stroke="white" stroke-width="4"
+                                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
