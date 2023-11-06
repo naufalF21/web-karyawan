@@ -1,9 +1,10 @@
 @extends('layout')
 @section('content')
     <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
-        <form action="/forgot-password/verification" method="get"
+        <form action="{{ route('reset_password.send_code') }}" method="post"
             class="form-signin text-center w-100 m-auto justify-content-center align-items-center">
             @csrf
+
             <img class="mx-auto mb-5" src="/assets/img/logo-algostudio.png" alt="logo-algostudio">
             <div class="text-start">
                 <p class="mx-auto mb-3 fw-normal text-primary fs-4 fw-bold">Forgot password</p>
@@ -12,7 +13,8 @@
                 </p>
             </div>
             <div class="form-group input-group mt-5">
-                <input class="form-control py-2 rounded-4" id="email" type="email" placeholder="Your Email" />
+                <input class="form-control py-2 rounded-4" id="email" type="email" placeholder="Your Email"
+                    name="email" required />
                 <span class="input-group-text bg-primary rounded-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22"
                         fill="none">
@@ -28,7 +30,8 @@
             <div class="text-center mt-4">
                 <div class="row">
                     <div class="col">
-                        <a href="/login" class="btn btn-outline-primary w-100 py-2 rounded-4">Cancel</a>
+                        <a href="{{ route('profile.settings') }}"
+                            class="btn btn-outline-primary w-100 py-2 rounded-4">Cancel</a>
                     </div>
                     <div class="col">
                         <button class="btn btn-primary w-100 py-2 text-white mb-2 rounded-4" type="submit">Submit</button>
@@ -37,4 +40,17 @@
             </div>
         </form>
     </div>
+    @if ($errors->has('email') || session()->has('error'))
+        <div class="toast align-items-center text-bg-danger border-0 position-fixed bottom-0 end-0 m-3" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body text-white">
+                    {{ $errors->first('email') ?? '' }}
+                    {{ session('error') ?? '' }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
 @endsection

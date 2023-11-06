@@ -50,19 +50,17 @@ class LemburController extends Controller
 
     public function filter(Request $request)
     {
-        $lembur = new Lembur();
-        $data = '';
-        $date = '';
-        if ($request->input('date')) {
-            $date = Carbon::parse($request->date)->format('M d,Y');
-            $data = $lembur->filterDate($request);
-        } else {
+        $date = $request->input('date');
+        $data = Lembur::whereDate('tanggal_lembur', $date);
+        $formattedDate = Carbon::parse($date)->format('M d,Y');
+
+        if ($formattedDate == now()->format('M d,Y')) {
             return redirect()->route('request.lembur');
         }
 
         return view('dashboard.request.lembur', [
             'title' => 'Dashboard Request',
-            'lemburs' => $data,
+            'lemburs' => $data->get(),
             'date' => $date,
         ]);
     }

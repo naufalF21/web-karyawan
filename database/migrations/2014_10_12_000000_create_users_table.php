@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('is_approved')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

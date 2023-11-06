@@ -88,7 +88,7 @@
                                                     <td>
                                                         <div class="d-flex">
                                                             @if ($user['photo_path'])
-                                                                <img src="{{ asset('storage/profiles/' . auth()->user()->photo_path) }}"
+                                                                <img src="{{ asset('storage/profiles/' . $user['photo_path']) }}"
                                                                     alt="Rounded circle Image"
                                                                     class="rounded-circle me-2 d-block" width="50px"
                                                                     height="50px" />

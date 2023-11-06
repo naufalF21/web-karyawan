@@ -14,7 +14,7 @@ class AbsenController extends Controller
 
         if ($absen->existingAbsen()) {
             $absen = $absen->latest()->first();
-            if ($absen->jam_kerja) {
+            if ($absen->jam_kerja || $absen->status == 'Absent') {
                 return redirect()->route('absen.done');
             }
         } else {
@@ -41,6 +41,7 @@ class AbsenController extends Controller
             $absensi = Absen::create([
                 'user_id' => $userId,
                 'tanggal' => $tanggal->toDateString(),
+                'status' => 'Attended',
             ]);
         }
 
@@ -76,7 +77,7 @@ class AbsenController extends Controller
             ->whereDate('tanggal', $today->toDateString())
             ->first();
 
-        if ($absensi == null || $absensi->jam_kerja == null) {
+        if ($absensi->jam_kerja == null && $absensi->status != 'Absent') {
             return redirect()->route('absen');
         }
 

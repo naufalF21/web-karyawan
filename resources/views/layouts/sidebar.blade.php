@@ -28,7 +28,7 @@
                 <span>Your account</span>
             </a>
             <a href="{{ route('profile.settings') }}"
-                class="text-black d-flex align-items-center gap-3 justify-content-center {{ Route::is('profile.settings') ? 'sidebar-active' : '' }}"
+                class="text-black d-flex align-items-center gap-3 justify-content-center {{ Route::is('profile.settings') || Route::is('profile.settings.password') ? 'sidebar-active' : '' }}"
                 style="padding: 0.6rem 0;" id="sidebarMenu">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

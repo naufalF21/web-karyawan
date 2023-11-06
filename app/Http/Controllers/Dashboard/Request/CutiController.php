@@ -14,7 +14,7 @@ class CutiController extends Controller
     public function index()
     {
         $date = now();
-        $cutis = Cuti::whereDate('tanggal', $date);
+        $cutis = Cuti::whereDate('tanggal', $date)->get();
         return view('dashboard.request.cuti', [
             'title' => 'Dashboard Request',
             'cutis' => $cutis,
@@ -50,20 +50,18 @@ class CutiController extends Controller
 
     public function filter(Request $request)
     {
-        $cuti = new Cuti();
-        $data = '';
-        $date = '';
-        if ($request->input('date')) {
-            $date = Carbon::parse($request->date)->format('M d,Y');
-            $data = $cuti->filterDate($request);
-        } else {
+        $date = $request->input('date');
+        $data = Cuti::whereDate('tanggal', $date);
+        $formattedDate = Carbon::parse($date)->format('M d,Y');
+
+        if ($formattedDate == now()->format('M d,Y')) {
             return redirect()->route('request.cuti');
         }
 
         return view('dashboard.request.cuti', [
             'title' => 'Dashboard Request',
-            'cutis' => $data,
-            'date' => $date,
+            'cutis' => $data->get(),
+            'date' => $formattedDate,
         ]);
     }
 }

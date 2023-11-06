@@ -41,7 +41,18 @@
                         </div>
                     </div>
                     {{-- tab --}}
-                    @include('components.tab')
+                    <ul class="nav nav-tabs mt-4">
+                        <li class="nav-item">
+                            <a class="nav-link active text-primary" aria-current="page"
+                                href="{{ route('request') }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ route('request.cuti') }}">Cuti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ route('request.lembur') }}">Lembur</a>
+                        </li>
+                    </ul>
                     {{-- end tab --}}
                     <div class="card mb-4">
                         <div class="card-body">
@@ -70,11 +81,11 @@
                                                 @if ($user['is_approved'])
                                                     <td
                                                         class="{{ $user['is_approved'] == 'true' ? 'text-success' : 'text-danger' }}">
-                                                        {{ $user['is_approved'] == 'true' ? 'Approved' : 'Not approved' }}
+                                                        {{ $user['is_approved'] == 'true' ? 'Approved' : 'Rejected' }}
                                                     </td>
                                                 @else
                                                     <td class="text-warning">
-                                                        Pending approval
+                                                        Waiting For Verification
                                                     </td>
                                                 @endif
                                                 <td class="d-flex align-items-center">

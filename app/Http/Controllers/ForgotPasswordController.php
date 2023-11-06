@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ForgotPasswordController extends Controller
 {
@@ -25,5 +26,19 @@ class ForgotPasswordController extends Controller
         return view('forgot_password.change', [
             'title' => 'Forgot Password'
         ]);
+    }
+
+    public function sendCode(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => ['required', 'email:dns'],
+        ]);
+
+        if ($validate) {
+
+            dd($request);
+        }
+
+        return back()->withErrors('email');
     }
 }

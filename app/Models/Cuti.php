@@ -17,11 +17,8 @@ class Cuti extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function hitungRemainingDaysOff()
+    private function hitungCuti($cutis)
     {
-        $user = auth()->user();
-        $currentYear = Carbon::now()->year;
-        $cutis = Cuti::where('user_id', $user->id)->whereYear('created_at', $currentYear)->get();
         $totalMenit = 1440;
         $totalSelisihHari = 0;
 
@@ -47,7 +44,6 @@ class Cuti extends Model
         }
 
         // Menghitung jumlah jam yang merupakan kelipatan 24
-
         $jam = floor($totalMenit / 60);
         $menit = $totalMenit % 60; // Sisa menit
         $totalJam = floor($jam / 24);
@@ -60,8 +56,8 @@ class Cuti extends Model
 
         $hariSisa = 11 - $totalSelisihHari;
         $hari = $totalJam % 24;
-
         $hariSisa += $hari;
+
         if ($hariSisa < 0) {
             $jamSisa = 0;
             $hariSisa = 0;
@@ -71,10 +67,22 @@ class Cuti extends Model
         return $remainingDaysOff;
     }
 
-    public function filterDate(Request $request)
+    public function totalCuti($userId, $bulan, $tahun)
     {
-        $date = $request->input('date');
-        $cutis = Cuti::whereDate('tanggal', $date)->get();
-        return $cutis;
+        $cutis = Cuti::where('user_id', $userId)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->get();
+
+        return $this->hitungCuti($cutis);
+    }
+
+    public function hitungRemainingDaysOff()
+    {
+        $user = auth()->user();
+        $currentYear = Carbon::now()->year;
+        $cutis = Cuti::where('user_id', $user->id)->whereYear('created_at', $currentYear)->get();
+
+        return $this->hitungCuti($cutis);
     }
 }

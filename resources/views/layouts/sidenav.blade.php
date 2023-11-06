@@ -20,65 +20,66 @@
                     </a>
                 </div>
                 <div class="nav-item">
-                    <a href="{{ route('absenDashboard') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                    @php
+                        $presence = ['presence', 'presence.filter', 'presence.attended'];
+                    @endphp
+                    <a href="{{ route('presence') }}"
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is($presence) ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" xmlns="http://www.w3.org/2000/svg" width="21" height="20"
                             viewBox="0 0 21 20" fill="none">
                             <path
                                 d="M7.16667 18.3333H13.8333C17.1833 18.3333 17.7833 16.9917 17.9583 15.3583L18.5833 8.69167C18.8083 6.65833 18.225 5 14.6667 5H6.33333C2.775 5 2.19166 6.65833 2.41666 8.69167L3.04166 15.3583C3.21666 16.9917 3.81666 18.3333 7.16667 18.3333Z"
-                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
-                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="{{ Route::is($presence) ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M7.16669 5.00033V4.33366C7.16669 2.85866 7.16669 1.66699 9.83335 1.66699H11.1667C13.8334 1.66699 13.8334 2.85866 13.8334 4.33366V5.00033"
-                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
-                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="{{ Route::is($presence) ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M12.1666 10.8333V11.6667C12.1666 11.675 12.1666 11.675 12.1666 11.6833C12.1666 12.5917 12.1583 13.3333 10.5 13.3333C8.84998 13.3333 8.83331 12.6 8.83331 11.6917V10.8333C8.83331 10 8.83331 10 9.66665 10H11.3333C12.1666 10 12.1666 10 12.1666 10.8333Z"
-                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
-                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="{{ Route::is($presence) ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M18.5417 9.16699C16.6167 10.567 14.4167 11.4003 12.1667 11.6837"
-                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
-                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="{{ Route::is($presence) ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M2.68335 9.3916C4.55835 10.6749 6.67502 11.4499 8.83335 11.6916"
-                                stroke="{{ Route::is('absenDashboard') || Route::is('absenDashboard.filter') ? 'white' : 'black' }}"
-                                stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="{{ Route::is($presence) ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        Absen
+                        Presence
                     </a>
                 </div>
                 <div class="nav-item">
+                    @php
+                        $employee = ['employee', 'employee.add', 'employee.edit'];
+                    @endphp
                     <a href="{{ route('employee') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('employee') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is($employee) ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" width="21" height="20" viewBox="0 0 21 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M15.1624 9.10983C16.4977 9.10983 17.5809 8.0274 17.5809 6.69212C17.5809 5.35684 16.4977 4.27441 15.1624 4.27441"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M16.2742 11.7373C16.673 11.7648 17.0694 11.8213 17.4598 11.9092C18.0021 12.0154 18.6545 12.2377 18.8867 12.7242C19.0349 13.0359 19.0349 13.3988 18.8867 13.7112C18.6553 14.1978 18.0021 14.4193 17.4598 14.5308"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M5.74165 9.10983C4.40638 9.10983 3.32318 8.0274 3.32318 6.69212C3.32318 5.35684 4.40638 4.27441 5.74165 4.27441"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M4.62983 11.7373C4.23108 11.7648 3.83462 11.8213 3.44427 11.9092C2.90191 12.0154 2.24955 12.2377 2.01809 12.7242C1.86913 13.0359 1.86913 13.3988 2.01809 13.7112C2.24879 14.1978 2.90191 14.4193 3.44427 14.5308"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M10.4481 12.2578C13.1538 12.2578 15.4654 12.6673 15.4654 14.3058C15.4654 15.9436 13.1691 16.3683 10.4481 16.3683C7.74167 16.3683 5.43091 15.9589 5.43091 14.3203C5.43091 12.6818 7.72716 12.2578 10.4481 12.2578Z"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M10.4481 9.92044C8.66367 9.92044 7.23291 8.48967 7.23291 6.70447C7.23291 4.92002 8.66367 3.48926 10.4481 3.48926C12.2326 3.48926 13.6633 4.92002 13.6633 6.70447C13.6633 8.48967 12.2326 9.92044 10.4481 9.92044Z"
-                                stroke="{{ Route::is('employee') ? 'white' : 'black' }}" stroke-width="1.5"
+                                stroke="{{ Route::is($employee) ? 'white' : 'black' }}" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         Employees
@@ -86,7 +87,7 @@
                 </div>
                 <div class="nav-item">
                     @php
-                        $request = ['request', 'request.cuti', 'request.cuti.filter', 'request.lembur'];
+                        $request = ['request', 'request.cuti', 'request.cuti.filter', 'request.lembur', 'request.lembur.filter'];
                     @endphp
                     <a href="{{ route('request') }}"
                         class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is($request) ? 'btn-primary text-white' : 'btn-light text-black' }}">
@@ -113,13 +114,16 @@
                         Request List</a>
                 </div>
                 <div class="nav-item">
+                    @php
+                        $report = ['report', 'report.filter'];
+                    @endphp
                     <a href="{{ route('report') }}"
-                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is('report') ? 'btn-primary text-white' : 'btn-light text-black' }}">
+                        class="btn fw-normal rounded-pille text-start w-100 ps-4 mt-2 {{ Route::is($report) ? 'btn-primary text-white' : 'btn-light text-black' }}">
                         <svg class="mr-1 mb-1" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M10 2.875C6.06497 2.875 2.875 6.06497 2.875 10C2.875 13.935 6.06497 17.125 10 17.125C13.935 17.125 17.125 13.935 17.125 10M10 2.875C13.935 2.875 17.125 6.06497 17.125 10M10 2.875V10M17.125 10H10M14.75 15.1458L10 10"
-                                stroke="{{ Route::is('report') ? 'white' : 'black' }}" stroke-width="1.2"
+                                stroke="{{ Route::is($report) ? 'white' : 'black' }}" stroke-width="1.2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         Report

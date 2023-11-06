@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('waktu_check_out')->nullable();
             $table->string('jam_kerja')->nullable();
             $table->boolean('terlambat')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

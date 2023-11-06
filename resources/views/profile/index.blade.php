@@ -124,7 +124,7 @@
                         @if (Route::is('profile.edit'))
                             <div class="d-flex flex-column gap-3">
                                 <button type="submit" class="btn btn-primary text-white px-3">Simpan</button>
-                                <a href="{{ route('profile') }}" class="btn btn-outline-primary px-3">Cancel</a>
+                                <a href="{{ route('profile') }}" class="btn btn-outline-primary px-3">Batal</a>
                             </div>
                         @else
                             <a href="{{ route('profile.edit') }}" class="btn btn-primary text-white px-4 mt-2"
@@ -137,7 +137,7 @@
         </div>
     </div>
     {{-- form remove photo --}}
-    <form id="remove-photo" action="{{ route('profile.delete') }}" method="post" style="display: none;">
+    <form id="remove-photo" action="{{ route('profile.delete.photo') }}" method="post" style="display: none;">
         @csrf
         @method('DELETE')
     </form>

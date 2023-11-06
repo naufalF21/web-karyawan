@@ -9,7 +9,7 @@
                     <div class="row mt-4">
                         <div class="col-sm-6 col-md-8">
                             <h3 class="">
-                                Absen
+                                Presence
                                 <small class="h6 text-primary">
                                     <svg width="20" height="20" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    {{ $totalAbsenToday }}
+                                    {{ $absens->count() }}
                                 </small>
                             </h3>
                         </div>
@@ -45,10 +45,17 @@
                             </a>
                         </div>
                     </div>
-                    <div class="d-flex align-items-end mt-4">
-                        <p class="text-blues" style="border-bottom: 2px solid; width: 115px;height: 35px;">All Employees</p>
-                        <hr class="w-100">
-                    </div>
+                    {{-- tab --}}
+                    <ul class="nav nav-tabs mt-4">
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" aria-current="page" href="{{ route('presence') }}">All
+                                Employees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-primary" href="{{ route('presence.attended') }}">Attended</a>
+                        </li>
+                    </ul>
+                    {{-- end tab --}}
                     <div class="card mb-4 ">
                         <div class="d-flex flex-row w-100 justify-content-between align-items-center pt-3 px-3">
                             <div>Date: <span class="fw-bold">{{ $todayFormatted }}</span></div>
@@ -57,8 +64,8 @@
                                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Filter
                                 </button>
-                                <form class="dropdown-menu p-4" action="{{ route('absenDashboard.filter') }}"
-                                    method="get">
+                                <form class="dropdown-menu p-4"
+                                    action="{{ route('presence.filter', ['page' => 'attended']) }}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="exampleDropdownFormDate1" class="form-label">Date</label>

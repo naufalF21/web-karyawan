@@ -16,6 +16,64 @@ class Absen extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function getStatus($userId)
+    {
+        $today = now();
+        $absen = Absen::whereDate('tanggal', $today)->where('user_id', $userId);
+
+        if ($absen->count() > 0) {
+            return $absen->first()->status;
+        }
+
+        return 0;
+    }
+
+    public function totalAbsent($userId, $bulan, $tahun)
+    {
+        $absen = Absen::where('user_id', $userId)
+            ->where('status', 'Absent')
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun);
+
+        return $absen->count();
+    }
+
+    public function totalPresent($userId, $bulan, $tahun)
+    {
+        $absen = Absen::where('user_id', $userId)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->where('status', 'Attended')->get();
+
+        return $absen;
+    }
+
+    public function totalTerlambat($userId, $bulan, $tahun)
+    {
+        $absens = Absen::where('user_id', $userId)
+            ->where('terlambat', true)
+            ->get();
+        $totalTelatDetik = 0;
+        $batasWaktu = Carbon::createFromTime(8, 40, 0); // Jam, Menit, Detik
+
+        if ($absens->count() > 0) {
+            foreach ($absens as $absen) {
+                $waktuCheckIn = Carbon::createFromTimeString($absen->waktu_check_in);
+
+                if ($waktuCheckIn->greaterThan($batasWaktu)) {
+                    $telatDetik = $waktuCheckIn->diffInSeconds($batasWaktu);
+
+                    $totalTelatDetik += $telatDetik;
+                }
+            }
+            $formatJamMenitDetik = gmdate("H:i:s", $totalTelatDetik);
+
+            return $formatJamMenitDetik;
+        }
+
+        return '00:00:00';
+    }
+
     public function existingAbsen()
     {
         $user = auth()->user();
@@ -25,16 +83,6 @@ class Absen extends Model
             ->where('tanggal', $tanggal)
             ->first();
     }
-
-    public function hitungJamTerlambat($userId)
-    {
-        $absens = Absen::where('user_id', $userId)
-            ->where('terlambat', true)
-            ->get();
-
-        return $absens->count();
-    }
-
 
     public function handleInAndOut($userId, $type)
     {

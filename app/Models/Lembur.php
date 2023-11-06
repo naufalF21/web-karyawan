@@ -17,13 +17,6 @@ class Lembur extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function filterDate(Request $request)
-    {
-        $date = $request->input('date');
-        $lemburs = Lembur::whereDate('tanggal_lembur', $date)->get();
-        return $lemburs;
-    }
-
     public function hitungTotalLemburPerBulan()
     {
         $user = auth()->user();
@@ -55,9 +48,11 @@ class Lembur extends Model
         return $formattedOvertime;
     }
 
-    public function hitungTotalLembur($user_id)
+    public function totalLembur($user_id, $bulan, $tahun)
     {
         $lemburs = Lembur::where('user_id', $user_id)
+            ->whereMonth('tanggal_lembur', $bulan)
+            ->whereYear('tanggal_lembur', $tahun)
             ->get();
         $totalOvertimeMinutes = 0;
 

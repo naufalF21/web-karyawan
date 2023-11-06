@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="row mt-4">
                         <div class="col-sm-6 col-md-8">
-                            <h3 class="">
+                            <h3>
                                 Report
                                 <small class="h6 text-primary">
                                     <svg width="20" height="20" viewBox="0 0 16 16" fill="none"
@@ -25,7 +25,7 @@
                                             </clipPath>
                                         </defs>
                                     </svg>
-                                    54
+                                    {{ $users->count() }}
                                 </small>
                             </h3>
                         </div>
@@ -50,13 +50,31 @@
                         <hr class="w-100">
                     </div>
                     <div class="card mb-4">
+                        <div class="d-flex flex-row w-100 justify-content-between align-items-center pt-3 px-3">
+                            <div>Month: <span class="fw-bold">{{ $date }}</span></div>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle text-white"
+                                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    Filter
+                                </button>
+                                <form class="dropdown-menu p-4" action="{{ route('report.filter') }}" method="post">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="exampleDropdownFormDate1" class="form-label">Month</label>
+                                        <input type="month" class="form-control" id="exampleDropdownFormDate1"
+                                            name="date">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary text-white">Set</button>
+                                </form>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Total Presents</th>
+                                            <th>Total Present</th>
                                             <th>Late</th>
                                             <th>Absent</th>
                                             <th>Cuti</th>
@@ -68,8 +86,17 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <img class="rounded-circle me-2 d-block" alt="avatar1"
-                                                            width="50px" height="50px" src="/assets/img/anime.png" />
+                                                        @if ($user->photo_path)
+                                                            <img src="{{ asset('storage/profiles/' . $user->photo_path) }}"
+                                                                alt="Rounded circle Image"
+                                                                class="rounded-circle me-2 d-block" width="50px"
+                                                                height="50px" />
+                                                        @else
+                                                            <img src="{{ 'https://ui-avatars.com/api/?background=random&name=' . $user->name }}"
+                                                                alt="Rounded circle Image"
+                                                                class="rounded-circle me-2 d-block" width="50px"
+                                                                height="50px" />
+                                                        @endif
                                                         <div>
                                                             <h6 class="mt-1 mb-0">{{ $user['name'] }}</h6>
                                                             <p class="text-secondary m-0">
@@ -78,12 +105,18 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-success">{{ $user->absens->count() }}</td>
-                                                <td class="text-danger">{{ $absen->hitungJamTerlambat($user['id']) }}</td>
-                                                <td>0</td>
-                                                <td>{{ $user->cutis->count() }}</td>
+                                                <td class="text-success">
+                                                    {{ $absen->totalPresent($user['id'], $bulan, $tahun)->count() }}
+                                                </td>
+                                                <td class="text-danger">
+                                                    {{ $absen->totalTerlambat($user['id'], $bulan, $tahun) }}</td>
+                                                <td>
+                                                    {{ $absen->totalAbsent($user['id'], $bulan, $tahun) }}
+                                                </td>
+                                                <td>{{ $cuti->totalCuti($user['id'], $bulan, $tahun) == '11 Day, 24h 00m' ? '12 Day' : $cuti->totalCuti($user['id'], $bulan, $tahun) }}
+                                                </td>
                                                 @if ($user->lemburs)
-                                                    <td>{{ $lembur->hitungTotalLembur($user['id']) }}</td>
+                                                    <td>{{ $lembur->totalLembur($user['id'], $bulan, $tahun) }}</td>
                                                 @else
                                                     <td>00:00:00</td>
                                                 @endif

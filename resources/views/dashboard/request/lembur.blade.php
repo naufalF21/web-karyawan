@@ -41,7 +41,18 @@
                         </div>
                     </div>
                     {{-- tab --}}
-                    @include('components.tab')
+                    <ul class="nav nav-tabs mt-4">
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" aria-current="page"
+                                href="{{ route('request') }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ route('request.cuti') }}">Cuti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active text-primary" href="{{ route('request.lembur') }}">Lembur</a>
+                        </li>
+                    </ul>
                     {{-- end tab --}}
                     <div class="card mb-4">
                         <div class="d-flex flex-row w-100 justify-content-between align-items-center pt-3 px-3">
@@ -53,7 +64,7 @@
                                     Filter
                                 </button>
                                 <form class="dropdown-menu p-4" action="{{ route('request.lembur.filter') }}"
-                                    method="get">
+                                    method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="exampleDropdownFormDate1" class="form-label">Date</label>
@@ -89,7 +100,8 @@
                                                     <td class="text-warning">Pending approval</td>
                                                 @endif
                                                 <td class="d-flex align-items-center">
-                                                    <a href="{{ route('request.lembur.detail', ['id' => $lembur['id']]) }}">
+                                                    <a
+                                                        href="{{ route('request.lembur.detail', ['id' => $lembur['id']]) }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="22"
                                                             height="22" viewBox="0 0 18 18" fill="none">
                                                             <path
