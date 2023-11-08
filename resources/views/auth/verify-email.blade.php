@@ -1,5 +1,5 @@
 @extends('layout')
-@include('layouts.navbar_email_verify')
+@include('components.navbar_email_verify')
 <div class="container w-50">
     <div class="card">
         <div class="card-header bg-primary text-white">

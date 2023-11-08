@@ -8,13 +8,15 @@ use App\Models\Lembur;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Notifications\LemburNotifikasi;
+use Illuminate\Support\Facades\Notification;
 
 class LemburController extends Controller
 {
     public function index()
     {
         $date = now();
-        $lemburs = Lembur::whereDate('tanggal_lembur', $date)->get();
+        $lemburs = Lembur::whereDate('created_at', $date)->get();
         return view('dashboard.request.lembur', [
             'title' => 'Dashboard Request',
             'lemburs' => $lemburs,
@@ -34,16 +36,20 @@ class LemburController extends Controller
 
     public function approve(Lembur $lembur)
     {
+        $user = User::find($lembur->user->id);
         $lembur->status = 'true';
         $lembur->save();
+        Notification::send($user, new LemburNotifikasi($lembur->status));
 
         return redirect()->route('request.lembur')->with('status', 'Lembur has been approved successfully.');
     }
 
     public function rejected(Lembur $lembur)
     {
+        $user = User::find($lembur->user->id);
         $lembur->status = 'false';
         $lembur->save();
+        Notification::send($user, new LemburNotifikasi($lembur->status));
 
         return redirect()->route('request.lembur')->with('status', 'Lembur has been rejected successfully.');
     }
@@ -51,7 +57,7 @@ class LemburController extends Controller
     public function filter(Request $request)
     {
         $date = $request->input('date');
-        $data = Lembur::whereDate('tanggal_lembur', $date);
+        $data = Lembur::whereDate('created_at', $date);
         $formattedDate = Carbon::parse($date)->format('M d,Y');
 
         if ($formattedDate == now()->format('M d,Y')) {

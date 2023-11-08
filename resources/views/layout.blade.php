@@ -11,7 +11,7 @@
 
 <body class="{{ Route::is($dashboard) ? 'sb-nav-fixed' : '' }}">
     @hasSection('container')
-        @include('layouts.navbar')
+        @include('components.navbar')
     @endif
     <main>
         @yield('content')

@@ -2,7 +2,7 @@
 @section('container')
     <div class="container">
         <div class="row gap-5">
-            @include('layouts.sidebar')
+            @include('components.sidebar')
             <form class="col-9" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">

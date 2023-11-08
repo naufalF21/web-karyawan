@@ -2,7 +2,7 @@
 @section('dashboard')
     @include('layouts.dashboard_heading')
     <div id="layoutSidenav">
-        @include('layouts.sidenav')
+        @include('components.sidenav')
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
@@ -83,6 +83,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Position</th>
+                                            <th>Jenis Lembur</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -92,6 +93,7 @@
                                             <tr>
                                                 <td>{{ $lembur->user->name }}</td>
                                                 <td>{{ $lembur->user->position ?: '-' }}</td>
+                                                <td>{{ $lembur->jenis }}</td>
                                                 @if ($lembur->status)
                                                     <td
                                                         class="{{ $lembur->status == 'true' ? 'text-success' : 'text-danger' }}">

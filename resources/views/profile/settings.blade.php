@@ -2,7 +2,7 @@
 @section('container')
     <div class="container">
         <div class="row gap-5">
-            @include('layouts.sidebar')
+            @include('components.sidebar')
             <div class="col-9">
                 @if (Route::is('profile.settings'))
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">

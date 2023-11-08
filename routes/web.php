@@ -10,13 +10,14 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerifyController;
 use App\Http\Controllers\Dashboard\ReportController;
 use App\Http\Controllers\Dashboard\EmployeeController;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PresenceController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Request\CutiController as RequestCutiController;
 use App\Http\Controllers\Dashboard\Request\LemburController as RequestLemburController;
 use App\Http\Controllers\Dashboard\Request\RegisterController as RequestRegisterController;
@@ -100,6 +101,11 @@ Route::post('/document/lembur', [LemburController::class, 'store'])->middleware(
 
 Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware(['auth', 'verified'])->name('submit');
 Route::get('/document/cetak', [DocumentController::class, 'cetak'])->middleware(['auth', 'verified'])->name('cetak');
+
+Route::middleware(['auth', 'verified'])->controller(NotifikasiController::class)->group(function () {
+    Route::post('/notification/read/{userId}', 'markAsRead')->name('notification.read');
+    Route::delete('/notification/delete/{userId}', 'clearAll')->name('notification.clearAll');
+});
 
 Route::middleware(['auth', 'verified', 'admin'])->controller(DashboardController::class)->name('dashboard.')->group(function () {
     Route::get('/dashboard', 'index')->name('index');

@@ -2,7 +2,7 @@
 @section('dashboard')
     @include('layouts.dashboard_heading')
     <div id="layoutSidenav">
-        @include('layouts.sidenav')
+        @include('components.sidenav')
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
