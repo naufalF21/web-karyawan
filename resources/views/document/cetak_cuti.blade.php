@@ -68,7 +68,7 @@
             <p>Nama : {{ $data->user->name }}</p>
             <p>Email : {{ $data->user->email }}</p>
             <p>Handphone : {{ $data->user->contact }}</p>
-            <p>Divisi : {{ $data->user->divisi }}</p>
+            <p>Position : {{ $data->user->position }}</p>
             @if ($data->jenis == 'Harian')
                 <p>Keterangan : {{ $data->keterangan }}</p>
             @endif

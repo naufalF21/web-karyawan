@@ -59,7 +59,7 @@
             <p>Nama : {{ $data->user->name }}</p>
             <p>Email : {{ $data->user->email }}</p>
             <p>Handphone : {{ $data->user->contact }}</p>
-            <p>Divisi : {{ $data->user->divisi }}</p>
+            <p>Position : {{ $data->user->position }}</p>
         </div>
         <div class="mb-1">
             <p>Memberitahukan dan memohon izin untuk melaksanakan kerja lembur pada :</p>
