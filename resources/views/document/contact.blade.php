@@ -95,10 +95,11 @@
                     </div>
                 </div>
                 <div>
-                    <label for="divisi" class="form-label fw-bold">Divisi<span class="text-danger">*</span></label>
+                    <label for="position" class="form-label fw-bold">Position<span class="text-danger">*</span></label>
                     <div class="form-group input-group">
-                        <input class="form-control py-2 rounded-start-4 border-end-0" id="divisi" name="divisi"
-                            type="text" placeholder="Divisi" value="{{ auth()->user()->divisi }}" required />
+                        <input class="form-control py-2 rounded-start-4 border-end-0" id="position" name="position"
+                            type="text" placeholder="position"
+                            value="{{ auth()->user()->position == 'none' ? '' : auth()->user()->position }}" required />
 
                         <span class="input-group-text px-3 rounded-end-4 bg-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24"

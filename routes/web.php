@@ -59,7 +59,7 @@ Route::controller(EmailVerifyController::class)->group(function () {
         ->name('verification.send');
 });
 
-Route::middleware(['auth', 'verified'])->controller(ProfileController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->controller(ProfileController::class)->group(function () {
     Route::get('/profile', 'index')->name('profile');
     Route::get('/profile/settings', 'settings')->name('profile.settings');
     Route::get('/profile/edit', 'edit')->name('profile.edit');
@@ -71,47 +71,47 @@ Route::middleware(['auth', 'verified'])->controller(ProfileController::class)->g
 });
 
 Route::middleware('guest')->controller(ForgotPasswordController::class)->group(function () {
-    Route::get('/reset-password', 'index')->name('reset_password');
-    Route::post('/reset-password', 'sendCode')->name('reset_password.send_code');
-    Route::get('/reset-password/verification', 'verification')->name('reset_password.verification');
-    Route::get('/reset-password/change-password', 'change')->name('reset_password.change');
+    Route::get('/reset-password', 'index')->name('password.request');
+    Route::post('/reset-password', 'sendEmail')->name('password.email');
+    Route::get('/reset-password/change-password/{token}', 'change')->name('password.reset');
+    Route::post('/reset-password/change-password', 'reset')->name('password.update');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('home');
 
-Route::get('/absen', [AbsenController::class, 'index'])->middleware(['auth', 'verified'])->name('absen');
-Route::post('/absen', [AbsenController::class, 'store'])->middleware(['auth', 'verified'])->name('absen.store');
-Route::get('/absen/done', [AbsenController::class, 'done'])->middleware(['auth', 'verified'])->name('absen.done');
+Route::get('/absen', [AbsenController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('absen');
+Route::post('/absen', [AbsenController::class, 'store'])->middleware(['auth', 'verified', 'admin'])->name('absen.store');
+Route::get('/absen/done', [AbsenController::class, 'done'])->middleware(['auth', 'verified', 'admin'])->name('absen.done');
 
-Route::get('/document', [DocumentController::class, 'index'])->middleware(['auth', 'verified'])->name('document');
-Route::post('/document', [DocumentController::class, 'store'])->middleware(['auth', 'verified'])->name('document.store');
+Route::get('/document', [DocumentController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('document');
+Route::post('/document', [DocumentController::class, 'store'])->middleware(['auth', 'verified', 'admin'])->name('document.store');
 
-Route::get('/document/contact', [ContactController::class, 'index'])->middleware(['auth', 'verified'])->name('contact');
-Route::post('/document/contact', [ContactController::class, 'store'])->middleware(['auth', 'verified'])->name('contact.store');
+Route::get('/document/contact', [ContactController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('contact');
+Route::post('/document/contact', [ContactController::class, 'store'])->middleware(['auth', 'verified', 'admin'])->name('contact.store');
 
-Route::middleware(['auth', 'verified'])->controller(CutiController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->controller(CutiController::class)->group(function () {
     Route::get('/document/cuti/harian', 'index')->name('cuti.harian');
     Route::post('/document/cuti/harian', 'store')->name('cuti.harian.store');
     Route::get('/document/cuti/perjam', 'indexCutiPerJam')->name('cuti.perjam');
     Route::post('/document/cuti/perjam', 'storeCutiPerJam')->name('cuti.perjam.store');
 });
 
-Route::get('/document/lembur', [LemburController::class, 'index'])->middleware(['auth', 'verified'])->name('lembur');
-Route::post('/document/lembur', [LemburController::class, 'store'])->middleware(['auth', 'verified'])->name('lembur.store');
+Route::get('/document/lembur', [LemburController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('lembur');
+Route::post('/document/lembur', [LemburController::class, 'store'])->middleware(['auth', 'verified', 'admin'])->name('lembur.store');
 
-Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware(['auth', 'verified'])->name('submit');
-Route::get('/document/cetak', [DocumentController::class, 'cetak'])->middleware(['auth', 'verified'])->name('cetak');
+Route::get('/document/submit', [DocumentController::class, 'submit'])->middleware(['auth', 'verified', 'admin'])->name('submit');
+Route::get('/document/cetak', [DocumentController::class, 'cetak'])->middleware(['auth', 'verified', 'admin'])->name('cetak');
 
-Route::middleware(['auth', 'verified'])->controller(NotifikasiController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->controller(NotifikasiController::class)->group(function () {
     Route::post('/notification/read/{userId}', 'markAsRead')->name('notification.read');
     Route::delete('/notification/delete/{userId}', 'clearAll')->name('notification.clearAll');
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->controller(DashboardController::class)->name('dashboard.')->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard'])->controller(DashboardController::class)->name('dashboard.')->group(function () {
     Route::get('/dashboard', 'index')->name('index');
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->controller(EmployeeController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard'])->controller(EmployeeController::class)->group(function () {
     Route::get('/dashboard/employees', 'index')->name('employee');
     Route::get('/dashboard/employees/add', 'add')->name('employee.add');
     Route::get('/dashboard/employees/edit/{id}', 'edit')->name('employee.edit');
@@ -120,14 +120,15 @@ Route::middleware(['auth', 'verified', 'admin'])->controller(EmployeeController:
     Route::delete('/dashboard/employees/delete/{id}', 'delete')->name('employee.delete');
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->controller(PresenceController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard'])->controller(PresenceController::class)->group(function () {
     Route::get('/dashboard/presence', 'index')->name('presence');
     Route::post('/dashboard/presence/absent/{id}', 'absent')->name('presence.absent');
     Route::get('/dashboard/presence/attended', 'attended')->name('presence.attended');
     Route::post('/dashboard/presence/filter/{page}', 'getFilter')->name('presence.filter');
+    Route::get('/dashboard/presence/export', 'export')->name('presence.export');
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard'])->group(function () {
     Route::controller(RequestRegisterController::class)->group(function () {
         Route::get('/dashboard/request', 'index')->name('request');
         Route::post('/dashboard/request/rejected/{user}', 'rejectedUser')->name('request.rejected');
@@ -149,7 +150,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->controller(ReportController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard'])->controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index')->name('report');
     Route::post('/dashboard/report/filter', 'filter')->name('report.filter');
 });

@@ -13,7 +13,7 @@ class AbsenController extends Controller
         $absen = new Absen();
 
         if ($absen->existingAbsen()) {
-            $absen = $absen->latest()->first();
+            $absen = $absen->existingAbsen();
             if ($absen->jam_kerja || $absen->status == 'Absent') {
                 return redirect()->route('absen.done');
             }
@@ -49,7 +49,7 @@ class AbsenController extends Controller
             $waktuCheckIn = $tanggal->format('h:i:s A');
 
             // Periksa apakah waktu check-in terlambat
-            $batasTelat = Carbon::parse($tanggal)->setHour(8)->setMinute(40); // Contoh: Batas waktu telat jam 08:15 pagi
+            $batasTelat = Carbon::parse($tanggal)->setHour(8)->setMinute(10); // Contoh: Batas waktu telat jam 08:15 pagi
             if ($tanggal > $batasTelat) {
                 $absensi->update(['waktu_check_in' => $waktuCheckIn, 'terlambat' => true]);
                 return redirect()->route('absen')->with('error', 'Check In berhasil dilakukan.');

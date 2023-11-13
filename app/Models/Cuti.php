@@ -46,16 +46,16 @@ class Cuti extends Model
         // Menghitung jumlah jam yang merupakan kelipatan 24
         $jam = floor($totalMenit / 60);
         $menit = $totalMenit % 60; // Sisa menit
-        $totalJam = floor($jam / 24);
-        $jamSisa = $jam - ($totalJam * 24);
+        $totalJam = floor($jam / 8);
+        $jamSisa = $jam - ($totalJam * 8);
 
         if ($jamSisa == 0) {
-            $jamSisa = 24;
+            $jamSisa = 8;
             $totalSelisihHari += 1;
         }
 
-        $hariSisa = 11 - $totalSelisihHari;
-        $hari = $totalJam % 24;
+        $hariSisa = 9 - $totalSelisihHari;
+        $hari = $totalJam % 8;
         $hariSisa += $hari;
 
         if ($hariSisa < 0) {
@@ -81,7 +81,9 @@ class Cuti extends Model
     {
         $user = auth()->user();
         $currentYear = Carbon::now()->year;
-        $cutis = Cuti::where('user_id', $user->id)->whereYear('created_at', $currentYear)->get();
+        $cutis = Cuti::where('user_id', $user->id)
+            ->where('status', 'true')
+            ->whereYear('created_at', $currentYear)->get();
 
         return $this->hitungCuti($cutis);
     }

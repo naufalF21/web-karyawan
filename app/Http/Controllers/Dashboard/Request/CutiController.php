@@ -7,7 +7,9 @@ use App\Models\Cuti;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\RequestCutiExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Notifications\CutiNotifikasi;
 use Illuminate\Support\Facades\Notification;
 
@@ -69,5 +71,10 @@ class CutiController extends Controller
             'cutis' => $data->get(),
             'date' => $formattedDate,
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new RequestCutiExport, 'cuti.xlsx');
     }
 }

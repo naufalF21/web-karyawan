@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckDashboardAccess
+class AdminAccess
 {
     /**
      * Handle an incoming request.
@@ -17,9 +17,9 @@ class CheckDashboardAccess
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && Auth::user()->role == 'admin') {
-            return $next($request);
+            return redirect()->route('dashboard.index');
         }
 
-        return back();
+        return $next($request);
     }
 }

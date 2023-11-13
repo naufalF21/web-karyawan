@@ -29,21 +29,6 @@
                                 </small>
                             </h3>
                         </div>
-                        <div class="col-6 col-md-4 d-flex justify-content-sm-end justify-content-start">
-                            <a href="#" class="btn text-black" style="border-color: #E6E7EC">
-                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8.08146 10.291L8.08146 2.26367" stroke="black" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.0255 8.33887L8.08145 10.2909L6.13745 8.33887" stroke="black"
-                                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M11.5061 5H12.2121C13.7521 5 15 6.2121 15 7.70867L15 11.2987C15 12.7908 13.7551 14 12.2189 14L3.78865 14C2.24865 14 1 12.7872 1 11.2913L1 7.70059C1 6.20916 2.24562 5 3.78108 5H4.49395"
-                                        stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                Export
-                            </a>
-                        </div>
                     </div>
                     {{-- tab --}}
                     <ul class="nav nav-tabs mt-4">

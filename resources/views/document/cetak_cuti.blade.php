@@ -75,10 +75,10 @@
         </div>
         <div class="mb-1">
             @if ($data->jenis == 'Harian')
-                <p>Bermaksud mengajukan cuti {{ $data->jenis }} dari jam {{ $data->mulai_jam_cuti }} s/d
+                <p>Bermaksud mengajukan cuti Perjam dari jam {{ $data->mulai_jam_cuti }} s/d
                     jam {{ $data->sd_jam_cuti }}</p>
             @else
-                <p>Bermaksud mengajukan cuti {{ $data->jenis }} dari tanggal {{ $data->tanggal }} s/d
+                <p>Bermaksud mengajukan cuti Harian ({{ $data->jenis }}) dari tanggal {{ $data->tanggal }} s/d
                     tanggal {{ $data->sd_tanggal }}</p>
             @endif
 

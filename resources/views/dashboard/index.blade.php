@@ -1,4 +1,12 @@
 @extends('layout')
+@section('js')
+    <script src="{{ $barChart->cdn() }}"></script>
+    {{ $barChart->script() }}
+    <script src="{{ $donutChart->cdn() }}"></script>
+    {{ $donutChart->script() }}
+    <script src="{{ $lineChart->cdn() }}"></script>
+    {{ $lineChart->script() }}
+@endsection
 @section('dashboard')
     @include('layouts.dashboard_heading')
     <div id="layoutSidenav">
@@ -10,35 +18,29 @@
                         <div class="col-sm-6 col-md-8">
                             <h1>Dashboard</h1>
                         </div>
-                        <div class="col-6 col-md-4 d-flex justify-content-sm-end ">
-                            <a href="#" class="btn text-black" style="border-color: #E6E7EC; height: fit-content;">
-                                <svg class="mr-1" width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8.08146 10.291L8.08146 2.26367" stroke="black" stroke-width="1.2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M10.0255 8.33887L8.08145 10.2909L6.13745 8.33887" stroke="black"
-                                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M11.5061 5H12.2121C13.7521 5 15 6.2121 15 7.70867L15 11.2987C15 12.7908 13.7551 14 12.2189 14L3.78865 14C2.24865 14 1 12.7872 1 11.2913L1 7.70059C1 6.20916 2.24562 5 3.78108 5H4.49395"
-                                        stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                Export
-                            </a>
-                        </div>
                     </div>
 
                     {{-- chart --}}
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="card mb-4" style="border-color: #04A6FE; border-width: 2px; border-radius: 18px;">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-column mr-1"></i>
-                                    Leave and overtime
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myBarStacked" width="100%" height="400"></canvas>
+                                <div class="card-header d-flex align-items-center justify-content-between w-100">
+                                    <span>
+                                        <i class="fas fa-chart-column mr-1"></i>
+                                        Leave and overtime
+                                    </span>
+                                    <div>
+                                        <select class="form-select" id="select" name="select_bar"
+                                            aria-label="Default select example">
+                                            <option value="sevenDays" name="option">
+                                                Last 7 Days</option>
+                                        </select>
+                                    </div>
                                 </div>
 
+                                <div class="card-body">
+                                    {!! $barChart->container() !!}
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
@@ -46,21 +48,30 @@
                                 <div class="card-header">
                                     <i class="fas fa-chart-pie mr-1"></i>
                                     Employees
-                                    <small class="text-blues">54</small>
+                                    <small class="text-blues">{{ $users->count() }}</small>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="myDoughnut" width="100%" height="400"></canvas>
+                                    {!! $donutChart->container() !!}
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4 mx-auto"
                             style="border-color: #04A6FE; border-width: 2px; border-radius: 18px; width: 98%">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar mr-1"></i>
-                                Presence
+                            <div class="card-header d-flex align-items-center justify-content-between w-100">
+                                <span>
+                                    <i class="fas fa-chart-bar mr-1"></i>
+                                    Presence
+                                </span>
+                                <div>
+                                    <select class="form-select" id="select" name="select_bar"
+                                        aria-label="Default select example">
+                                        <option value="sevenDays" name="option">
+                                            Last 7 Days</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="myLine" width="100%" height="400"></canvas>
+                                {!! $lineChart->container() !!}
                             </div>
                         </div>
                         {{-- end chart --}}
@@ -108,7 +119,10 @@
                                                     <td>{{ $user['email'] }}</td>
                                                     <td>{{ $user['contact'] ? $user['contact'] : '-' }}</td>
                                                     <td>
-                                                        <a href="#" class="text-black">
+                                                        <!-- Button trigger modal delete -->
+                                                        <a href="#" type="button" class="text-black delete-btn"
+                                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                            data-user-id="{{ $user['id'] }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" fill="currentColor" class="bi bi-trash"
                                                                 viewBox="0 0 16 16">
@@ -118,7 +132,8 @@
                                                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                                                             </svg>
                                                         </a>
-                                                        <a href="#" class="ml-3 text-black">
+                                                        <a href="{{ route('employee.edit', ['id' => $user['id']]) }}"
+                                                            class="ml-3 text-black">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" fill="currentColor" class="bi bi-pencil"
                                                                 viewBox="0 0 16 16">
@@ -139,4 +154,64 @@
             </main>
         </div>
     </div>
+    {{-- notif --}}
+    @if (session('success'))
+        <div class="toast align-items-center text-bg-primary border-0 position-fixed bottom-0 end-0 m-3" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body text-white">
+                    {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+    <!-- Modal delete -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title fw-bold" id="deleteModalLabel">Are you sure you want to delete this account?
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span class="text-primary">After the deletion is done.</span><br />
+                    All data related to absences, overtime, leave, will be deleted from the database
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary text-white" id="confirmDelete">Delete account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- end Modal delete --}}
+    <script>
+        // Mendapatkan elemen modal dan tombol konfirmasi
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDeleteButton = document.getElementById('confirmDelete');
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Mengambil data pengguna dari atribut data-modal
+                let userId = button.getAttribute('data-user-id');
+                confirmDeleteButton.addEventListener('click', function() {
+                    // Gunakan metode fetch untuk membuat permintaan DELETE
+                    fetch('/dashboard/employees/delete/' + userId, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Sesuaikan dengan token CSRF Laravel Anda
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(window.location.href = '/dashboard/')
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            })
+        })
+    </script>
 @endsection

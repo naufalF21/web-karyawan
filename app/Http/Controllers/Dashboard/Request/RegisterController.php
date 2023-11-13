@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard\Request;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RequestRegisterExport;
 
 class RegisterController extends Controller
 {
@@ -32,5 +34,10 @@ class RegisterController extends Controller
         $user->save();
 
         return redirect()->route('request')->with('status', 'User has been rejected successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new RequestRegisterExport, 'all-register.xlsx');
     }
 }

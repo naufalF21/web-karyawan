@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\UsersExport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -46,7 +48,6 @@ class EmployeeController extends Controller
             'address' => 'required',
             'position' => 'required',
             'contact' => 'required',
-            'divisi' => 'required',
             'birthday' => 'required',
         ]);
 
@@ -62,7 +63,6 @@ class EmployeeController extends Controller
         $user->address = $validatedData['address'];
         $user->position = $validatedData['position'];
         $user->contact = $validatedData['contact'];
-        $user->divisi = $validatedData['divisi'];
         $user->birthday = $validatedData['birthday'];
 
         $user->save();

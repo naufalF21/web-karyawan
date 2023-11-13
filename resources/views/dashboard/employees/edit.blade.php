@@ -67,12 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="mb-3 col">
-                                        <label for="exampleInputDivisi1" class="form-label">Divisi</label>
-                                        <input type="text" class="form-control" id="exampleInputDivisi1" name="divisi"
-                                            value="{{ $user->divisi }}" required>
-                                    </div>
-                                    <div class="mb-3 col">
+                                    <div class="mb-3 col-6">
                                         <label for="exampleInputBirthday1" class="form-label">Birthday</label>
                                         <input type="date" class="form-control" id="exampleInputBirthday1"
                                             name="birthday" value="{{ $user->birthday }}" required>

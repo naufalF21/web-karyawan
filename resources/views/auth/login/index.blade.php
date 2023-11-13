@@ -4,9 +4,10 @@
         <form action="/login" method="post"
             class="form-signin text-center w-100 m-auto justify-content-center align-items-center">
             @csrf
-            @if (session()->has('success'))
+            @if (session()->has('success') || session()->has('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
+                    {{ session('success') ?? '' }}
+                    {{ session('status') ?? '' }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -56,7 +57,7 @@
             </div>
             <div class="text-end mb-4">
                 <p><a class="link-offset-2 link-underline link-underline-opacity-0 text-primary"
-                        href="{{ route('reset_password') }}">Forgot
+                        href="{{ route('password.request') }}">Forgot
                         Password?</a></p>
             </div>
             <button class="btn btn-primary w-100 py-2 mb-2 rounded-4 text-white" type="submit">Login</button>

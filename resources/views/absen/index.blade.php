@@ -91,8 +91,8 @@
             let button = document.getElementById("in-btn");
             let checkinValue = document.getElementById('checkin-value');
 
-            // Bandingkan waktu dengan 08:40 AM (08:40 = 8 * 60 + 40)
-            if (hours > 8 || (hours === 8 && minutes >= 40)) {
+            // Bandingkan waktu dengan 08:10 AM (08:40 = 8 * 60 + 40)
+            if (hours > 8 || (hours === 8 && minutes >= 10)) {
                 button.classList.add('btn-warning');
             }
 

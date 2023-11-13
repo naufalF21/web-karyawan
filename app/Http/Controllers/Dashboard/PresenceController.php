@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Exports\AbsenExport;
+use App\Exports\AttendedExport;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Absen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lembur;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresenceController extends Controller
 {
@@ -15,7 +18,7 @@ class PresenceController extends Controller
     {
         $lembur = new Lembur();
         $today = now();
-        $users = User::all();
+        $users = User::where('role', '!=', 'admin')->get();
         $absen = new Absen();
 
         return view('dashboard.presence.index', [

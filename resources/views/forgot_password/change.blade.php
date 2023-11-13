@@ -1,13 +1,33 @@
 @extends('layout')
 @section('content')
     <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
-        <form action="/login" method="get"
+        <form action="{{ route('password.update') }}" method="post"
             class="form-signin text-start w-100 m-auto justify-content-center align-items-center">
             @csrf
-            <p class="mx-auto mb-3 fw-normal text-primary fs-4 fw-bold">Forgot password</p>
-            <p class="mx-auto mb-3 fw-normal">Set your new password to login into your account!</p>
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($errors->has('email'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ $errors->first('email') ?? '' }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <img class="mx-auto mb-5" src="/assets/img/logo-algostudio.png" alt="logo-algostudio">
+            <div class="text-start">
+                <p class="mx-auto mb-3 fw-normal text-primary fs-4 fw-bold">Forgot password</p>
+                <p class="mx-auto mb-3 fw-normal">Set your new password to login into your account!</p>
+            </div>
             <div class="form-group input-group mt-5">
-                <input class="form-control py-2 rounded-4" id="password" type="password" placeholder="Your Password" />
+                <input type="hidden" name="token" value="{{ request()->token }}">
+                <input type="hidden" name="email" value="{{ request()->email }}">
+                <input class="form-control py-2 rounded-4" id="password" type="password" name="password"
+                    placeholder="Your Password" required />
                 <span class="input-group-text rounded-4 bg-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
                         fill="none">
@@ -26,7 +46,7 @@
             <div class="text-center mt-4">
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-outline-primary w-100 py-2 rounded-4" href="/login">Cancel</a>
+                        <a class="btn btn-outline-primary w-100 py-2 rounded-4" href="{{ route('login') }}">Cancel</a>
                     </div>
                     <div class="col">
                         <button class="btn btn-primary w-100 py-2 mb-2 rounded-4 text-white" type="submit">Submit</button>

@@ -30,12 +30,12 @@ class ContactController extends Controller
             'name' => 'required',
             'email' => 'required',
             'contact' => 'required',
-            'divisi' => 'required',
+            'position' => 'required',
         ]);
 
         if ($validatedData) {
             $user->contact = $validatedData['contact'];
-            $user->divisi = $validatedData['divisi'];
+            $user->position = $validatedData['position'];
             $user->save();
 
             if ($dokumen == 'cuti') {

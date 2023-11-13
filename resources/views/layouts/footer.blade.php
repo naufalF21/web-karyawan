@@ -16,6 +16,8 @@
                     <a href="#"><img src="/assets/img/logo-footer.svg" alt="logo-algostudio" style="height: 1rem"></a>
                     <span class="fw-bold">algostudio</span>
                 </div>
+                <span style="font-size: .8rem">Candi Brahu 21B – Malang 65142</span>
+                <br>
                 <span style="font-size: .8rem">© Copyright 2022 Algorians</span>
             </div>
             <div class="d-flex gap-4">

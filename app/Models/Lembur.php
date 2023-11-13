@@ -22,6 +22,7 @@ class Lembur extends Model
         $user = auth()->user();
         $currentMonth = Carbon::now()->month;
         $lemburs = Lembur::where('user_id', $user->id)
+            ->where('status', 'true')
             ->whereMonth('created_at', $currentMonth)
             ->get();
         $totalOvertimeMinutes = 0;
@@ -82,6 +83,7 @@ class Lembur extends Model
     {
         $today = now()->format('Y-m-d');
         $data = Lembur::where('user_id', $userId)
+            ->where('status', 'true')
             ->where('tanggal_lembur', $today)
             ->first();
 
